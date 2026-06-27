@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   Star,
@@ -58,6 +58,15 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
 
 export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const activeTab = searchParams.get('tab') || 'overview'
+
+  const handleTabChange = (value: string) => {
+    setSearchParams((prev) => {
+      prev.set('tab', value)
+      return prev
+    }, { replace: true })
+  }
   const { data: project, isLoading, isError } = useProject(id)
 
   const proj = project ?? MOCK_PROJECTS.find((p) => p.id === id) ?? MOCK_PROJECTS[0]
@@ -228,7 +237,7 @@ export default function ProjectDetailPage() {
             <div className="bg-slate-900/40 border border-white/10 rounded-2xl p-6 backdrop-blur-md shadow-2xl relative overflow-hidden mb-8 lg:mb-0">
               <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-[80px] pointer-events-none" />
 
-              <Tabs defaultValue="overview">
+              <Tabs value={activeTab} onValueChange={handleTabChange}>
                 <TabsList className="flex overflow-x-auto md:flex-wrap whitespace-nowrap scrollbar-hide max-w-full h-auto gap-1 mb-6 bg-slate-950/60 p-1 rounded-xl border border-white/5">
                   <TabsTrigger value="overview" className="px-4 py-2 text-sm text-slate-400 data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Overview</TabsTrigger>
                   <TabsTrigger value="features" className="px-4 py-2 text-sm text-slate-400 data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Features</TabsTrigger>
