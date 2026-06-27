@@ -10,7 +10,8 @@
     "start": "node backend/src/index.js",
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",
-    "install:all": "npm install && npm run install:frontend && npm run install:backend"
+    "install:all": "npm install && npm run install:frontend && npm run install:backend",
+    "postinstall": "npm run install:backend"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
