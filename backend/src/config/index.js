@@ -8,8 +8,8 @@ module.exports = {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   },
   admin: {
-    email: process.env.ADMIN_EMAIL || 'admin@innovateguide.com',
-    password: process.env.ADMIN_PASSWORD || 'admin123',
+    email: process.env.ADMIN_EMAIL,
+    password: process.env.ADMIN_PASSWORD,
   },
   google: {
     sheetsId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
