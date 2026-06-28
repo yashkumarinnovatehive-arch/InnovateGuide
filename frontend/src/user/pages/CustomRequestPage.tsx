@@ -109,7 +109,7 @@ const FieldLabel: React.FC<{ children: React.ReactNode; required?: boolean }> = 
   children,
   required,
 }) => (
-  <label className="block text-sm font-semibold text-slate-300 mb-1.5 font-inter">
+  <label className="block text-sm font-semibold text-[var(--color-text)] mb-1.5 font-inter">
     {children}
     {required && <span className="text-rose-500 ml-0.5">*</span>}
   </label>
@@ -125,20 +125,20 @@ const NativeSelect = React.forwardRef<
     <select
       ref={ref}
       className={[
-        'w-full h-12 rounded-xl border bg-slate-950/60 px-4 text-sm text-slate-200 appearance-none cursor-pointer',
+        'w-full h-12 rounded-xl border bg-[var(--color-input-bg)] px-4 text-sm text-[var(--color-text-heading)] appearance-none cursor-pointer',
         'transition-all duration-200',
         'focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         error
           ? 'border-rose-500/50 focus:border-rose-500 focus:ring-rose-500/20'
-          : 'border-white/10 hover:border-white/20',
+          : 'border-[var(--color-border)] hover:border-white/20',
         className,
       ].join(' ')}
       {...props}
     >
       {children}
     </select>
-    <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
+    <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-[var(--color-subtle)]">
       <svg className="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
       </svg>
@@ -186,7 +186,7 @@ const CustomRequestPage: React.FC = () => {
   )}`
 
   return (
-    <div className="min-h-screen text-slate-100 relative overflow-hidden font-inter pt-24 pb-16" style={{ background: '#080B16' }}>
+    <div className="min-h-screen text-[var(--color-text-heading)] bg-[var(--color-bg0)] relative overflow-hidden font-inter pt-24 pb-16">
       {/* Background glow blobs */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none" style={{ background: 'rgba(114,20,255,0.08)' }} />
       <div className="absolute top-1/2 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[140px] pointer-events-none" style={{ background: 'rgba(99,102,241,0.06)' }} />
@@ -200,8 +200,7 @@ const CustomRequestPage: React.FC = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
-          className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold mb-4 font-inter"
-          style={{ background: 'rgba(114,20,255,0.12)', color: '#c4b5fd', border: '1px solid rgba(114,20,255,0.28)' }}
+          className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold mb-4 font-inter bg-purple-500/10 text-purple-400 border border-purple-500/20"
         >
           Premium Custom Projects
         </motion.span>
@@ -209,7 +208,7 @@ const CustomRequestPage: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.1 }}
-          className="font-sora font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 text-slate-100"
+          className="font-sora font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 text-[var(--color-text-heading)]"
         >
           Get Your{' '}
           <span
@@ -223,7 +222,7 @@ const CustomRequestPage: React.FC = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.2 }}
-          className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto"
+          className="text-[var(--color-subtle)] text-base sm:text-lg max-w-2xl mx-auto"
         >
           Describe your idea and our expert team will craft a fully functional project
           tailored to your exact requirements — on time and within budget.
@@ -236,8 +235,7 @@ const CustomRequestPage: React.FC = () => {
 
           {/* ══ LEFT — Form ══ */}
           <motion.div
-            className="lg:col-span-3 border border-white/8 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden"
-            style={{ background: '#0E1330', backdropFilter: 'blur(16px)' }}
+            className="lg:col-span-3 border border-[var(--color-border)] bg-[var(--color-bg1)] rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden backdrop-blur-md"
             variants={stagger}
             initial="hidden"
             animate="visible"
@@ -245,10 +243,10 @@ const CustomRequestPage: React.FC = () => {
             <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-[80px] pointer-events-none" style={{ background: 'rgba(114,20,255,0.10)' }} />
 
             <motion.div variants={fadeUp} className="mb-6">
-              <h2 className="font-sora font-bold text-2xl text-slate-100">
+              <h2 className="font-sora font-bold text-2xl text-[var(--color-text-heading)]">
                 Request Custom Project
               </h2>
-              <p className="text-slate-400 text-sm mt-1">
+              <p className="text-[var(--color-subtle)] text-sm mt-1">
                 Fields marked with <span className="text-rose-500">*</span> are required.
               </p>
             </motion.div>
@@ -263,17 +261,17 @@ const CustomRequestPage: React.FC = () => {
                 <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center">
                   <CheckCircle className="text-emerald-400" size={32} />
                 </div>
-                <h3 className="font-sora font-bold text-xl text-slate-100">
+                <h3 className="font-sora font-bold text-xl text-[var(--color-text-heading)]">
                   Request Submitted!
                 </h3>
-                <p className="text-slate-400 max-w-xs text-sm leading-relaxed">
+                <p className="text-[var(--color-subtle)] max-w-xs text-sm leading-relaxed">
                   We'll contact you within 24 hours to discuss your project requirements.
                 </p>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setSubmitted(false)}
-                  className="mt-2 border-white/10 hover:bg-white/5 text-slate-200"
+                  className="mt-2 border-[var(--color-border)] hover:bg-[var(--color-card)] text-[var(--color-text-heading)]"
                 >
                   Submit Another Request
                 </Button>
@@ -289,7 +287,7 @@ const CustomRequestPage: React.FC = () => {
                       {...register('name')}
                       placeholder="e.g. Rahul Sharma"
                       error={errors.name?.message}
-                      className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                      className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                     />
                   </div>
                   <div>
@@ -299,7 +297,7 @@ const CustomRequestPage: React.FC = () => {
                       type="email"
                       placeholder="you@example.com"
                       error={errors.email?.message}
-                      className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                      className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                     />
                   </div>
                 </motion.div>
@@ -312,7 +310,7 @@ const CustomRequestPage: React.FC = () => {
                       {...register('phone')}
                       type="tel"
                       placeholder="+91 98765 43210"
-                      className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                      className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                     />
                   </div>
                   <div>
@@ -363,9 +361,9 @@ const CustomRequestPage: React.FC = () => {
                   <Input
                     {...register('technologies')}
                     placeholder="e.g. React, Node.js, Python, MongoDB (comma-separated)"
-                    className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                    className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                   />
-                  <p className="mt-1.5 text-xs text-slate-500">
+                  <p className="mt-1.5 text-xs text-[var(--color-muted)]">
                     Enter technologies separated by commas. Leave blank if unsure.
                   </p>
                 </motion.div>
@@ -376,7 +374,7 @@ const CustomRequestPage: React.FC = () => {
                   <Textarea
                     {...register('requirements')}
                     placeholder="Describe your project in detail — features, functionality, goals, target users, and any specific technical requirements..."
-                    className="min-h-[130px] bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                    className="min-h-[130px] bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                     error={errors.requirements?.message}
                   />
                 </motion.div>
@@ -387,7 +385,7 @@ const CustomRequestPage: React.FC = () => {
                   <Textarea
                     {...register('additionalInfo')}
                     placeholder="Any other details — deadline constraints, reference links, design preferences, etc."
-                    className="min-h-[90px] bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                    className="min-h-[90px] bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                   />
                 </motion.div>
 
@@ -420,14 +418,14 @@ const CustomRequestPage: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.15 }}
           >
             {/* Custom Project Support card */}
-            <div className="rounded-3xl border border-white/8 p-6 shadow-2xl relative overflow-hidden" style={{ background: '#0E1330', backdropFilter: 'blur(16px)' }}>
+            <div className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg1)] p-6 shadow-2xl relative overflow-hidden backdrop-blur-md">
               <div className="absolute top-0 left-0 w-64 h-64 rounded-full blur-[80px] pointer-events-none" style={{ background: 'rgba(114,20,255,0.10)' }} />
 
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(114,20,255,0.15)', border: '1px solid rgba(114,20,255,0.25)' }}>
-                  <Shield size={20} style={{ color: '#a365ff' }} />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-purple-500/10 border border-purple-500/25">
+                  <Shield size={20} className="text-purple-400" />
                 </div>
-                <h3 className="font-sora font-bold text-lg text-white">Custom Project Support</h3>
+                <h3 className="font-sora font-bold text-lg text-[var(--color-text-heading)]">Custom Project Support</h3>
               </div>
 
               <ul className="space-y-3 mb-6">
@@ -436,23 +434,23 @@ const CustomRequestPage: React.FC = () => {
                     <div className="w-5 h-5 rounded-full bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center shrink-0 mt-0.5">
                       <CheckCircle size={13} className="text-emerald-400" />
                     </div>
-                    <span className="text-sm text-slate-350">{benefit}</span>
+                    <span className="text-sm text-[var(--color-subtle)]">{benefit}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="grid grid-cols-3 gap-3 mb-6 pt-5 border-t border-white/10">
+              <div className="grid grid-cols-3 gap-3 mb-6 pt-5 border-t border-[var(--color-border)]">
                 <div className="text-center">
-                  <p className="font-sora font-bold text-xl text-slate-100">500+</p>
-                  <p className="text-[10px] text-slate-500 uppercase font-semibold mt-0.5">Projects Done</p>
+                  <p className="font-sora font-bold text-xl text-[var(--color-text-heading)]">500+</p>
+                  <p className="text-[10px] text-[var(--color-muted)] uppercase font-semibold mt-0.5">Projects Done</p>
                 </div>
-                <div className="text-center border-x border-white/10">
-                  <p className="font-sora font-bold text-xl text-slate-100">24h</p>
-                  <p className="text-[10px] text-slate-500 uppercase font-semibold mt-0.5">Response Time</p>
+                <div className="text-center border-x border-[var(--color-border)]">
+                  <p className="font-sora font-bold text-xl text-[var(--color-text-heading)]">24h</p>
+                  <p className="text-[10px] text-[var(--color-muted)] uppercase font-semibold mt-0.5">Response Time</p>
                 </div>
                 <div className="text-center">
-                  <p className="font-sora font-bold text-xl text-slate-100">4.9</p>
-                  <p className="text-[10px] text-slate-500 uppercase font-semibold mt-0.5">Avg Rating</p>
+                  <p className="font-sora font-bold text-xl text-[var(--color-text-heading)]">4.9</p>
+                  <p className="text-[10px] text-[var(--color-muted)] uppercase font-semibold mt-0.5">Avg Rating</p>
                 </div>
               </div>
 
@@ -471,12 +469,12 @@ const CustomRequestPage: React.FC = () => {
             </div>
 
             {/* How It Works card */}
-            <div className="rounded-3xl border border-white/8 p-6 shadow-2xl relative overflow-hidden" style={{ background: '#0E1330', backdropFilter: 'blur(16px)' }}>
+            <div className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg1)] p-6 shadow-2xl relative overflow-hidden backdrop-blur-md">
               <div className="absolute top-0 left-0 w-64 h-64 rounded-full blur-[80px] pointer-events-none" style={{ background: 'rgba(114,20,255,0.08)' }} />
 
               <div className="flex items-center gap-2 mb-5">
-                <Clock size={18} style={{ color: '#a365ff' }} />
-                <h3 className="font-sora font-bold text-base text-white">How It Works</h3>
+                <Clock size={18} className="text-purple-400" />
+                <h3 className="font-sora font-bold text-base text-[var(--color-text-heading)]">How It Works</h3>
               </div>
 
               <ol className="space-y-5">
@@ -489,8 +487,8 @@ const CustomRequestPage: React.FC = () => {
                       {step}
                     </div>
                     <div>
-                      <p className="font-semibold text-sm text-slate-200">{title}</p>
-                      <p className="text-xs text-slate-400 mt-1 leading-relaxed">{desc}</p>
+                      <p className="font-semibold text-sm text-[var(--color-text-heading)]">{title}</p>
+                      <p className="text-xs text-[var(--color-subtle)] mt-1 leading-relaxed">{desc}</p>
                     </div>
                   </li>
                 ))}
@@ -504,7 +502,7 @@ const CustomRequestPage: React.FC = () => {
               </div>
               <div>
                 <p className="font-semibold text-sm" style={{ color: '#c4b5fd' }}>Expert Team</p>
-                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                <p className="text-xs text-[var(--color-subtle)] mt-1 leading-relaxed">
                   Every custom project is handled by verified developers with industry experience
                   in your chosen technology stack.
                 </p>

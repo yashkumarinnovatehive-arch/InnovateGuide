@@ -16,14 +16,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium text-[#0F172A]"
+            className="text-sm font-medium text-heading"
           >
             {label}
           </label>
         )}
         <div className="relative flex items-center">
           {icon && (
-            <span className="absolute left-4 flex items-center justify-center text-slate-400 pointer-events-none">
+            <span className="absolute left-4 flex items-center justify-center text-subtle pointer-events-none">
               {icon}
             </span>
           )}
@@ -31,11 +31,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={cn(
-              'w-full h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm text-[#0F172A] placeholder:text-slate-400',
+              'w-full h-12 rounded-xl border border-[var(--color-input-border)] bg-[var(--color-input-bg)] px-4 text-sm text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)]',
               'transition-all duration-200',
-              'focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20',
-              'disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50',
-              error && 'border-[#EF4444] focus:border-[#EF4444] focus:ring-[#EF4444]/20',
+              'focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20',
+              'disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-[var(--color-bg1)]',
+              error && 'border-rose-500 focus:border-rose-500 focus:ring-rose-500/20',
               icon && 'pl-11',
               className
             )}

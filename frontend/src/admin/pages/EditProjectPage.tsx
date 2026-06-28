@@ -85,7 +85,7 @@ const STATUS_OPTIONS: {
   { value: 'approved', label: 'Approved', color: 'text-green-600 bg-green-50 border-green-200' },
   { value: 'rejected', label: 'Rejected', color: 'text-red-600 bg-red-50 border-red-200' },
   { value: 'published', label: 'Published', color: 'text-blue-600 bg-blue-50 border-blue-200' },
-  { value: 'draft', label: 'Draft', color: 'text-slate-600 bg-slate-50 border-slate-200' },
+  { value: 'draft', label: 'Draft', color: 'text-muted bg-[var(--color-bg1)] border-border' },
   { value: 'archived', label: 'Archived', color: 'text-purple-600 bg-purple-50 border-purple-200' },
 ]
 
@@ -94,7 +94,7 @@ const FieldLabel: React.FC<{
   required?: boolean
   className?: string
 }> = ({ children, required, className }) => (
-  <label className={cn('block text-sm font-medium text-slate-700 mb-1.5', className)}>
+  <label className={cn('block text-sm font-medium text-heading mb-1.5', className)}>
     {children}
     {required && <span className="text-red-500 ml-0.5">*</span>}
   </label>
@@ -135,7 +135,7 @@ const TagInput: React.FC<TagInputProps> = ({ label, placeholder, tags, onChange,
       <div className="flex gap-2 mb-2">
         <div className="relative flex-1">
           {icon && (
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-subtle pointer-events-none">
               {icon}
             </span>
           )}
@@ -145,7 +145,7 @@ const TagInput: React.FC<TagInputProps> = ({ label, placeholder, tags, onChange,
             onKeyDown={handleKey}
             placeholder={placeholder}
             className={cn(
-              'w-full h-10 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400',
+              'w-full h-10 rounded-xl border border-border bg-card text-sm text-heading placeholder:text-subtle',
               'focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all',
               icon ? 'pl-9 pr-4' : 'px-4'
             )}
@@ -164,13 +164,13 @@ const TagInput: React.FC<TagInputProps> = ({ label, placeholder, tags, onChange,
           {tags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-medium"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[var(--color-bg2)] text-heading text-xs font-medium"
             >
               {tag}
               <button
                 type="button"
                 onClick={() => remove(tag)}
-                className="text-slate-400 hover:text-red-500 transition-colors"
+                className="text-subtle hover:text-red-500 transition-colors"
               >
                 <X size={12} />
               </button>
@@ -237,16 +237,16 @@ const FileDrop: React.FC<FileDropProps> = ({
           'border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all duration-200',
           isDragActive
             ? 'border-blue-500 bg-blue-50'
-            : 'border-slate-200 bg-slate-50 hover:border-blue-400 hover:bg-blue-50/50'
+            : 'border-border bg-[var(--color-bg1)] hover:border-blue-400 hover:bg-blue-50/50'
         )}
       >
         <input {...getInputProps()} />
-        <div className="flex flex-col items-center gap-2 text-slate-500">
+        <div className="flex flex-col items-center gap-2 text-muted">
           {icon}
-          <p className="text-sm font-medium text-slate-700">
+          <p className="text-sm font-medium text-heading">
             {isDragActive ? 'Drop here...' : 'Replace — drag & drop or click to upload'}
           </p>
-          <p className="text-xs text-slate-400">{description}</p>
+          <p className="text-xs text-subtle">{description}</p>
         </div>
       </div>
 
@@ -255,16 +255,16 @@ const FileDrop: React.FC<FileDropProps> = ({
           {files.map((f, i) => (
             <li
               key={`${f.name}-${i}`}
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-100 text-sm"
+              className="flex items-center justify-between px-3 py-2 rounded-lg bg-[var(--color-bg2)] text-sm"
             >
-              <span className="truncate text-slate-700 flex-1">{f.name}</span>
-              <span className="text-xs text-slate-400 mx-3 shrink-0">
+              <span className="truncate text-heading flex-1">{f.name}</span>
+              <span className="text-xs text-subtle mx-3 shrink-0">
                 {(f.size / 1024).toFixed(0)} KB
               </span>
               <button
                 type="button"
                 onClick={() => onRemove(i)}
-                className="text-slate-400 hover:text-red-500 transition-colors shrink-0"
+                className="text-subtle hover:text-red-500 transition-colors shrink-0"
               >
                 <X size={14} />
               </button>
@@ -280,8 +280,8 @@ const FormSection: React.FC<{ title: string; children: React.ReactNode }> = ({
   title,
   children,
 }) => (
-  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
-    <h3 className="font-sora font-semibold text-base text-slate-900 pb-3 border-b border-slate-100">
+  <div className="bg-card rounded-2xl border border-border shadow-sm p-6 space-y-5">
+    <h3 className="font-sora font-semibold text-base text-heading pb-3 border-b border-slate-100">
       {title}
     </h3>
     {children}
@@ -379,10 +379,10 @@ const EditProjectPage: React.FC = () => {
         <AdminHeader title="Edit Project" />
         <div className="flex flex-col items-center justify-center gap-4 h-64 text-center">
           <AlertCircle size={36} className="text-red-500" />
-          <p className="font-semibold text-slate-800">Project not found</p>
-          <p className="text-sm text-slate-500">
+          <p className="font-semibold text-heading">Project not found</p>
+          <p className="text-sm text-muted">
             The project with ID{' '}
-            <code className="bg-slate-100 px-1 rounded">{id}</code> could not be loaded.
+            <code className="bg-[var(--color-bg2)] px-1 rounded">{id}</code> could not be loaded.
           </p>
           <Button
             variant="outline"
@@ -423,7 +423,7 @@ const EditProjectPage: React.FC = () => {
               render={({ field }) => (
                 <select
                   {...field}
-                  className="w-full h-10 rounded-xl border border-amber-300 bg-white px-4 text-sm text-slate-900 appearance-none focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 transition-all"
+                  className="w-full h-10 rounded-xl border border-amber-300 bg-card px-4 text-sm text-heading appearance-none focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 transition-all"
                 >
                   {STATUS_OPTIONS.map((s) => (
                     <option key={s.value} value={s.value}>
@@ -455,9 +455,9 @@ const EditProjectPage: React.FC = () => {
               <select
                 {...register('domain')}
                 className={cn(
-                  'w-full h-12 rounded-xl border bg-white px-4 text-sm text-slate-900 appearance-none',
+                  'w-full h-12 rounded-xl border bg-card px-4 text-sm text-heading appearance-none',
                   'focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all',
-                  errors.domain ? 'border-red-400' : 'border-slate-200'
+                  errors.domain ? 'border-red-400' : 'border-border'
                 )}
               >
                 <option value="">Select domain</option>
@@ -477,9 +477,9 @@ const EditProjectPage: React.FC = () => {
                   <select
                     {...field}
                     className={cn(
-                      'w-full h-12 rounded-xl border bg-white px-4 text-sm text-slate-900 appearance-none',
+                      'w-full h-12 rounded-xl border bg-card px-4 text-sm text-heading appearance-none',
                       'focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all',
-                      errors.difficulty ? 'border-red-400' : 'border-slate-200'
+                      errors.difficulty ? 'border-red-400' : 'border-border'
                     )}
                   >
                     {DIFFICULTIES.map((d) => (
@@ -500,9 +500,9 @@ const EditProjectPage: React.FC = () => {
                   <select
                     {...field}
                     className={cn(
-                      'w-full h-12 rounded-xl border bg-white px-4 text-sm text-slate-900 appearance-none',
+                      'w-full h-12 rounded-xl border bg-card px-4 text-sm text-heading appearance-none',
                       'focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all',
-                      errors.type ? 'border-red-400' : 'border-slate-200'
+                      errors.type ? 'border-red-400' : 'border-border'
                     )}
                   >
                     {PROJECT_TYPES.map((t) => (
@@ -590,7 +590,7 @@ const EditProjectPage: React.FC = () => {
             label="Project Screenshots / Thumbnails"
             accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp', '.gif'] }}
             multiple
-            icon={<ImageIcon size={28} className="text-slate-400" />}
+            icon={<ImageIcon size={28} className="text-subtle" />}
             description="Upload new images to replace existing ones"
             existingUrls={project.screenshots ?? []}
             files={imageFiles}
@@ -605,7 +605,7 @@ const EditProjectPage: React.FC = () => {
               'application/x-zip-compressed': ['.zip'],
             }}
             multiple={false}
-            icon={<FileArchive size={28} className="text-slate-400" />}
+            icon={<FileArchive size={28} className="text-subtle" />}
             description="Upload a new ZIP to replace the current source archive"
             files={zipFiles}
             onFiles={(f) => setZipFiles(f)}

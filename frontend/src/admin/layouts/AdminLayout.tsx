@@ -38,15 +38,15 @@ const AdminLayout = () => {
 
       <div className="flex flex-1 flex-col min-w-0 md:ml-0">
 
-        <div className="flex items-center gap-3 border-b border-border bg-white px-4 py-3 md:hidden">
+        <div className="flex items-center gap-3 border-b border-border bg-card px-4 py-3 md:hidden">
           <button
             onClick={() => setSidebarOpen((prev) => !prev)}
-            className="rounded-md p-1.5 text-primary-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/30"
+            className="rounded-md p-1.5 text-muted hover:bg-accent/10 focus:outline-none focus:ring-2 focus:ring-accent/30"
             aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
           >
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <span className="font-sora font-bold text-primary-900 text-sm">
+          <span className="font-sora font-bold text-sm" style={{ color: 'var(--color-text-heading)' }}>
             InnovateGuide Admin
           </span>
         </div>

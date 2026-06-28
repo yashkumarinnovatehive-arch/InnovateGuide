@@ -136,16 +136,16 @@ const StudentProjectsPage: React.FC = () => {
       <div className="flex items-center gap-1 border-b border-border">
         {TAB_LABELS.map(({ key, label }) => (
           <button key={key} onClick={() => handleTabChange(key)}
-            className={`px-4 py-2.5 text-sm font-inter font-medium rounded-t-lg transition-colors duration-150 whitespace-nowrap ${activeTab === key ? 'bg-[#1E3A5F] text-white border border-b-0 border-border' : 'text-muted hover:text-primary-900 hover:bg-slate-50'}`}>
+            className={`px-4 py-2.5 text-sm font-inter font-medium rounded-t-lg transition-colors duration-150 whitespace-nowrap ${activeTab === key ? 'bg-[#1E3A5F] text-white border border-b-0 border-border' : 'text-muted hover:text-heading hover:bg-[var(--color-bg1)]'}`}>
             {label}{' '}
-            <span className={`ml-1.5 inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${activeTab === key ? 'bg-white/20 text-white' : 'bg-slate-100 text-primary-600'}`}>
+            <span className={`ml-1.5 inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${activeTab === key ? 'bg-card/20 text-white' : 'bg-[var(--color-bg2)] text-heading'}`}>
               {counts[key]}
             </span>
           </button>
         ))}
       </div>
 
-      <div className="rounded-xl border border-border shadow-card overflow-hidden bg-white">
+      <div className="rounded-xl border border-border shadow-card overflow-hidden bg-card">
         <div className="overflow-x-auto">
           <table className="w-full text-sm font-inter">
             <thead>
@@ -160,9 +160,9 @@ const StudentProjectsPage: React.FC = () => {
                 <tr><td colSpan={7} className="text-center py-16 text-muted font-inter text-sm">No projects found in this category.</td></tr>
               ) : (
                 paginated.map((project) => (
-                  <tr key={project.id} className="bg-white hover:bg-slate-50 transition-colors duration-100">
-                    <td className="px-5 py-3.5 font-medium text-primary-900 whitespace-nowrap">{project.title}</td>
-                    <td className="px-5 py-3.5 text-primary-700 whitespace-nowrap">{project.studentName}</td>
+                  <tr key={project.id} className="bg-card hover:bg-[var(--color-bg1)] transition-colors duration-100">
+                    <td className="px-5 py-3.5 font-medium text-heading whitespace-nowrap">{project.title}</td>
+                    <td className="px-5 py-3.5 text-heading whitespace-nowrap">{project.studentName}</td>
                     <td className="px-5 py-3.5 text-muted whitespace-nowrap">{project.email}</td>
                     <td className="px-5 py-3.5 whitespace-nowrap"><Badge variant="blue">{formatPrice(project.price)}</Badge></td>
                     <td className="px-5 py-3.5 whitespace-nowrap"><Badge variant="default">{project.domain}</Badge></td>
@@ -181,14 +181,14 @@ const StudentProjectsPage: React.FC = () => {
           </table>
         </div>
         {totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-border px-5 py-3 bg-white">
+          <div className="flex items-center justify-between border-t border-border px-5 py-3 bg-card">
             <p className="text-xs font-inter text-muted">Page {currentPage} of {totalPages} &mdash; {filtered.length} total</p>
             <div className="flex items-center gap-1">
-              <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1} className="p-1.5 rounded-lg text-primary-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors"><ChevronLeft size={16} /></button>
+              <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1} className="p-1.5 rounded-lg text-heading hover:bg-[var(--color-bg2)] disabled:opacity-40 disabled:pointer-events-none transition-colors"><ChevronLeft size={16} /></button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button key={page} onClick={() => goToPage(page)} className={`h-7 w-7 rounded-lg text-xs font-inter font-medium transition-colors duration-150 ${page === currentPage ? 'bg-[#1E3A5F] text-white' : 'text-primary-600 hover:bg-slate-100'}`}>{page}</button>
+                <button key={page} onClick={() => goToPage(page)} className={`h-7 w-7 rounded-lg text-xs font-inter font-medium transition-colors duration-150 ${page === currentPage ? 'bg-[#1E3A5F] text-white' : 'text-heading hover:bg-[var(--color-bg2)]'}`}>{page}</button>
               ))}
-              <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages} className="p-1.5 rounded-lg text-primary-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors"><ChevronRight size={16} /></button>
+              <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages} className="p-1.5 rounded-lg text-heading hover:bg-[var(--color-bg2)] disabled:opacity-40 disabled:pointer-events-none transition-colors"><ChevronRight size={16} /></button>
             </div>
           </div>
         )}
@@ -203,7 +203,7 @@ const StudentProjectsPage: React.FC = () => {
           {viewTarget && (
             <div className="space-y-3 text-sm font-inter">
               {[['Title', viewTarget.title],['Student', viewTarget.studentName],['Email', viewTarget.email],['Domain', viewTarget.domain],['Price', formatPrice(viewTarget.price)],['Submitted', formatDate(viewTarget.createdAt)]].map(([label, value]) => (
-                <div key={label} className="flex items-start gap-2"><span className="w-28 shrink-0 text-muted font-medium">{label}</span><span>:</span><span className="text-primary-900 break-words">{value}</span></div>
+                <div key={label} className="flex items-start gap-2"><span className="w-28 shrink-0 text-muted font-medium">{label}</span><span>:</span><span className="text-heading break-words">{value}</span></div>
               ))}
               <div className="flex items-center gap-2"><span className="w-28 shrink-0 text-muted font-medium">Status</span><span>:</span>{statusBadge(viewTarget.approvalStatus)}</div>
             </div>
@@ -216,7 +216,7 @@ const StudentProjectsPage: React.FC = () => {
         <DialogContent className="max-w-sm">
           <DialogHeader>
             <DialogTitle>Approve Project</DialogTitle>
-            <DialogDescription>Are you sure you want to approve <span className="font-semibold text-primary-900">{approveTarget?.title}</span>? The project will be visible in the marketplace.</DialogDescription>
+            <DialogDescription>Are you sure you want to approve <span className="font-semibold text-heading">{approveTarget?.title}</span>? The project will be visible in the marketplace.</DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" size="sm" onClick={() => setApproveTarget(null)}>Cancel</Button>
@@ -229,11 +229,11 @@ const StudentProjectsPage: React.FC = () => {
         <DialogContent className="max-w-sm">
           <DialogHeader>
             <DialogTitle>Reject Project</DialogTitle>
-            <DialogDescription>Provide a reason for rejecting <span className="font-semibold text-primary-900">{rejectTarget?.title}</span>.</DialogDescription>
+            <DialogDescription>Provide a reason for rejecting <span className="font-semibold text-heading">{rejectTarget?.title}</span>.</DialogDescription>
           </DialogHeader>
           <div className="space-y-2 mt-2">
-            <label className="text-sm font-inter font-medium text-primary-900">Rejection Reason <span className="text-red-500">*</span></label>
-            <textarea value={rejectReason} onChange={(e) => { setRejectReason(e.target.value); if (e.target.value.trim()) setRejectError('') }} rows={4} placeholder="Explain why this project is being rejected…" className="w-full px-3 py-2 text-sm font-inter resize-none bg-white border border-border rounded-lg text-primary-900 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-150" />
+            <label className="text-sm font-inter font-medium text-heading">Rejection Reason <span className="text-red-500">*</span></label>
+            <textarea value={rejectReason} onChange={(e) => { setRejectReason(e.target.value); if (e.target.value.trim()) setRejectError('') }} rows={4} placeholder="Explain why this project is being rejected…" className="w-full px-3 py-2 text-sm font-inter resize-none bg-card border border-border rounded-lg text-heading placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-150" />
             {rejectError && <p className="text-xs text-red-500 font-inter">{rejectError}</p>}
           </div>
           <DialogFooter>

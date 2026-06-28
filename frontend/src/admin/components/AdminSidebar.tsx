@@ -8,9 +8,12 @@ import {
   Settings,
   LogOut,
   LucideIcon,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { cn } from '@utils/index';
 import { useAuth } from '@hooks/useAuth';
+import { useTheme } from '@shared/contexts/ThemeContext';
 
 interface NavItem {
   icon: LucideIcon;
@@ -31,6 +34,7 @@ const AdminSidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -40,7 +44,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <aside className="w-64 h-screen sticky top-0 flex flex-col bg-white border-r border-border overflow-hidden shrink-0">
+    <aside className="w-64 h-screen sticky top-0 flex flex-col bg-card border-r border-border overflow-hidden shrink-0">
 
       <div className="px-6 py-5 border-b border-border">
         <Link to="/admin/dashboard" className="flex items-center gap-3 group">
@@ -48,7 +52,7 @@ const AdminSidebar = () => {
             <span className="text-lg leading-none select-none">💡</span>
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="font-sora font-bold text-sm text-primary-900 tracking-tight">
+            <span className="font-sora font-bold text-sm tracking-tight" style={{ color: 'var(--color-text-heading)' }}>
               InnovateGuide
             </span>
             <span className="text-[11px] font-inter text-muted font-medium tracking-wide uppercase">
@@ -70,7 +74,7 @@ const AdminSidebar = () => {
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-inter font-medium transition-all duration-150',
                 active
                   ? 'bg-accent/10 text-accent border-r-2 border-accent rounded-r-none'
-                  : 'text-primary-600 hover:bg-slate-50 hover:text-primary-900',
+                  : 'text-muted hover:bg-accent/5 hover:text-accent',
               )}
             >
               <Icon
@@ -91,16 +95,33 @@ const AdminSidebar = () => {
 
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-inter font-medium w-full text-danger hover:bg-danger/5 hover:text-danger transition-all duration-150"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-inter font-medium w-full text-danger hover:bg-danger/5 hover:text-danger transition-all duration-150 mt-2"
         >
           <LogOut size={18} className="shrink-0 text-danger" />
           <span className="truncate">Logout</span>
         </button>
       </nav>
 
-      <div className="mx-4 border-t border-border" />
+      <div className="mx-4 border-t" style={{ borderColor: 'var(--color-border)' }} />
 
-      <div className="px-6 py-4">
+      <div className="px-6 py-4 flex flex-col gap-3">
+        {/* Theme toggle */}
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-inter font-medium text-muted">Theme</span>
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-200"
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.08)'}`,
+              color: isDark ? '#fbbf24' : '#6366f1',
+            }}
+            aria-label="Toggle theme"
+          >
+            {isDark ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
+        </div>
+
         <p className="text-[11px] font-inter text-muted text-center tracking-wide">
           Powered by{' '}
           <span className="font-semibold text-accent">InnovateHive</span>

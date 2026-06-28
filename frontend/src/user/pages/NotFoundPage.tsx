@@ -43,7 +43,7 @@ export default function NotFoundPage() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.28 }}
-          className="text-slate-500 text-base mb-8 leading-relaxed"
+          className="text-[var(--color-muted)] text-base mb-8 leading-relaxed"
         >
           The page you're looking for doesn't exist or may have been moved.
           <br className="hidden sm:block" />

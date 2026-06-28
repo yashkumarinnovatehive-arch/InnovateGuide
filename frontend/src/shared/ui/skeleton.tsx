@@ -16,7 +16,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 Skeleton.displayName = 'Skeleton'
 
 const CardSkeleton = ({ className }: { className?: string }) => (
-  <div className={cn('bg-white border border-slate-200 rounded-2xl overflow-hidden', className)}>
+  <div className={cn('bg-card border border-border rounded-2xl overflow-hidden', className)}>
     <Skeleton className="w-full h-48 rounded-none" />
 
     <div className="p-5 space-y-3">

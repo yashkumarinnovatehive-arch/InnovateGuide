@@ -96,15 +96,15 @@ const StyledSelect = React.forwardRef<
       ref={ref}
       {...props}
       className={cn(
-        'w-full h-12 rounded-xl border bg-slate-950/60 px-4 text-sm text-slate-200 appearance-none cursor-pointer',
+        'w-full h-12 rounded-xl border bg-[var(--color-input-bg)] px-4 text-sm text-[var(--color-text-heading)] appearance-none cursor-pointer',
         'focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all',
-        error ? 'border-rose-500/50' : 'border-white/10 hover:border-white/20',
+        error ? 'border-rose-500/50' : 'border-[var(--color-border)] hover:border-white/20',
         className
       )}
     >
       {children}
     </select>
-    <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
+    <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-[var(--color-subtle)]">
       <svg className="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
       </svg>
@@ -150,13 +150,13 @@ const TagInput: React.FC<TagInputProps> = ({
       <FieldLabel required={required}>{label}</FieldLabel>
       <div className="flex gap-2 mb-2">
         <div className="relative flex-1">
-          <Tag size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+          <Tag size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)] pointer-events-none" />
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKey}
             placeholder={placeholder}
-            className="w-full h-12 rounded-xl border border-white/10 bg-slate-950/60 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all pl-9 pr-4"
+            className="w-full h-12 rounded-xl border border-[var(--color-border)] bg-[var(--color-input-bg)] text-sm text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all pl-9 pr-4"
           />
         </div>
         <button
@@ -235,16 +235,16 @@ const FileDrop: React.FC<FileDropProps> = ({
           'border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200',
           isDragActive
             ? 'border-orange-500 bg-orange-950/20'
-            : 'border-white/10 bg-slate-950/20 hover:border-orange-500/50 hover:bg-orange-950/10'
+            : 'border-[var(--color-border)] bg-[var(--color-bg0)]/20 hover:border-orange-500/50 hover:bg-orange-950/10'
         )}
       >
         <input {...getInputProps()} />
-        <div className="flex flex-col items-center gap-2 text-slate-400">
+        <div className="flex flex-col items-center gap-2 text-[var(--color-subtle)]">
           {icon}
-          <p className="text-sm font-medium text-slate-200">
+          <p className="text-sm font-medium text-[var(--color-text-heading)]">
             {isDragActive ? 'Drop files here…' : 'Drag & drop or click to upload'}
           </p>
-          <p className="text-xs text-slate-500">{description}</p>
+          <p className="text-xs text-[var(--color-muted)]">{description}</p>
         </div>
       </div>
       {files.length > 0 && (
@@ -252,10 +252,10 @@ const FileDrop: React.FC<FileDropProps> = ({
           {files.map((f, i) => (
             <li
               key={`${f.name}-${i}`}
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-950/40 border border-white/5 text-sm"
+              className="flex items-center justify-between px-3 py-2 rounded-lg bg-[var(--color-input-bg)] border border-[var(--color-border)] text-sm"
             >
-              <span className="truncate text-slate-300 flex-1">{f.name}</span>
-              <span className="text-xs text-slate-500 mx-3 shrink-0">
+              <span className="truncate text-[var(--color-text)] flex-1">{f.name}</span>
+              <span className="text-xs text-[var(--color-muted)] mx-3 shrink-0">
                 {(f.size / 1024).toFixed(0)} KB
               </span>
               <button
@@ -278,14 +278,14 @@ const FormSection: React.FC<{
   title: string
   children: React.ReactNode
 }> = ({ number, title, children }) => (
-  <div className="bg-slate-900/40 border border-white/10 rounded-2xl shadow-2xl backdrop-blur-md relative overflow-hidden">
+  <div className="bg-[var(--color-bg1)]/40 border border-[var(--color-border)] rounded-2xl shadow-2xl backdrop-blur-md relative overflow-hidden">
     <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-[80px] pointer-events-none" />
 
-    <div className="flex items-center gap-3 px-6 py-4 border-b border-white/5 bg-slate-950/40 relative z-10">
+    <div className="flex items-center gap-3 px-6 py-4 border-b border-[var(--color-border)] bg-[var(--color-input-bg)] relative z-10">
       <span className="w-7 h-7 rounded-full bg-orange-500/25 border border-orange-500/30 text-orange-400 text-xs font-bold flex items-center justify-center shrink-0 shadow-[0_0_8px_rgba(249,115,22,0.2)]">
         {number}
       </span>
-      <h2 className="font-sora font-bold text-base text-slate-100">{title}</h2>
+      <h2 className="font-sora font-bold text-base text-[var(--color-text-heading)]">{title}</h2>
     </div>
     <div className="p-6 space-y-5 relative z-10">{children}</div>
   </div>
@@ -340,7 +340,7 @@ const UploadProjectPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-slate-100 relative overflow-hidden font-inter pt-24 pb-16">
+    <div className="min-h-screen bg-[var(--color-bg0)] text-[var(--color-text-heading)] relative overflow-hidden font-inter pt-24 pb-16">
       {/* Background glow blobs */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[140px] pointer-events-none" />
@@ -351,10 +351,10 @@ const UploadProjectPage: React.FC = () => {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="font-sora font-bold text-2xl sm:text-3xl text-slate-100">
+          <h1 className="font-sora font-bold text-2xl sm:text-3xl text-[var(--color-text-heading)]">
             Submit Your Project
           </h1>
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-[var(--color-subtle)]">
             Fill in your details and project information. Our team will review and
             publish it within 24–48 hours.
           </p>
@@ -373,7 +373,7 @@ const UploadProjectPage: React.FC = () => {
                   {...register('studentName')}
                   placeholder="Your full name"
                   error={errors.studentName?.message}
-                  className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                  className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
@@ -386,7 +386,7 @@ const UploadProjectPage: React.FC = () => {
                   {...register('email')}
                   placeholder="you@example.com"
                   error={errors.email?.message}
-                  className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                  className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
@@ -399,7 +399,7 @@ const UploadProjectPage: React.FC = () => {
                   {...register('mobile')}
                   placeholder="+91 9876543210"
                   error={errors.mobile?.message}
-                  className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                  className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
@@ -411,7 +411,7 @@ const UploadProjectPage: React.FC = () => {
                   {...register('college')}
                   placeholder="Your college or university"
                   error={errors.college?.message}
-                  className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                  className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
@@ -423,7 +423,7 @@ const UploadProjectPage: React.FC = () => {
                   {...register('course')}
                   placeholder="e.g. B.Tech CSE, BCA, MCA"
                   error={errors.course?.message}
-                  className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                  className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
@@ -460,7 +460,7 @@ const UploadProjectPage: React.FC = () => {
                   {...register('title')}
                   placeholder="e.g. AI Attendance System"
                   error={errors.title?.message}
-                  className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                  className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
@@ -472,7 +472,7 @@ const UploadProjectPage: React.FC = () => {
                   {...register('developer')}
                   placeholder="Developer or team name"
                   error={errors.developer?.message}
-                  className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                  className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 />
               </div>
             </div>
@@ -507,7 +507,7 @@ const UploadProjectPage: React.FC = () => {
                   {...register('price')}
                   placeholder="e.g. 1499"
                   error={errors.price?.message}
-                  className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                  className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
@@ -539,7 +539,7 @@ const UploadProjectPage: React.FC = () => {
                 id="description"
                 {...register('description')}
                 placeholder="Describe your project — features, purpose, technical highlights, and what makes it unique..."
-                className="min-h-[120px] bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                className="min-h-[120px] bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 error={errors.description?.message}
               />
             </div>
@@ -561,7 +561,7 @@ const UploadProjectPage: React.FC = () => {
                 {...register('videoUrl')}
                 placeholder="https://youtube.com/watch?v=..."
                 error={errors.videoUrl?.message}
-                className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
               />
             </div>
 
@@ -606,7 +606,7 @@ const UploadProjectPage: React.FC = () => {
                 {...register('githubUrl')}
                 placeholder="https://github.com/username/repo"
                 error={errors.githubUrl?.message}
-                className="bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                className="bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
               />
             </div>
 
@@ -619,7 +619,7 @@ const UploadProjectPage: React.FC = () => {
                 id="requirements"
                 {...register('requirements')}
                 placeholder="List all required software, libraries, or frameworks (e.g. Node.js v18+, Python 3.10, MongoDB)..."
-                className="min-h-[100px] bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                className="min-h-[100px] bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 error={errors.requirements?.message}
               />
             </div>
@@ -633,7 +633,7 @@ const UploadProjectPage: React.FC = () => {
                 id="setupInstructions"
                 {...register('setupInstructions')}
                 placeholder="Step-by-step instructions to run the project locally..."
-                className="min-h-[120px] bg-slate-950/60 border-white/10 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-indigo-500/20"
+                className="min-h-[120px] bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:border-indigo-500 focus:ring-indigo-500/20"
                 error={errors.setupInstructions?.message}
               />
             </div>
@@ -646,7 +646,7 @@ const UploadProjectPage: React.FC = () => {
               variant="outline"
               size="md"
               onClick={() => navigate('/')}
-              className="border-white/10 text-slate-200 hover:bg-white/5 hover:text-white"
+              className="border-[var(--color-border)] text-[var(--color-text-heading)] hover:bg-[var(--color-card)] hover:text-white"
             >
               Cancel
             </Button>

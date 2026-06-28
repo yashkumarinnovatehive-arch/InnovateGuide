@@ -140,12 +140,12 @@ function ActiveFilterPill({ label, onRemove }: ActiveFilterPillProps) {
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}
-      className="inline-flex items-center gap-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold px-3 py-1 font-inter"
+      className="inline-flex items-center gap-1.5 rounded-lg bg-[linear-gradient(135deg,#7214ff,#a365ff)]/10 border border-[#7214ff]/20 text-[#a365ff] text-xs font-semibold px-3 py-1 font-inter"
     >
       {label}
       <button
         onClick={onRemove}
-        className="ml-0.5 rounded-md hover:bg-orange-500/20 p-0.5 transition-colors"
+        className="ml-0.5 rounded-md hover:bg-[linear-gradient(135deg,#7214ff,#a365ff)]/20 p-0.5 transition-colors"
         aria-label={`Remove ${label} filter`}
       >
         <X size={10} />
@@ -197,14 +197,14 @@ function Sidebar({
   const [sortOpen, setSortOpen] = useState(true)
 
   return (
-    <aside className="flex flex-col h-full overflow-y-auto bg-slate-900/40 border border-white/5 rounded-2xl backdrop-blur-md">
+    <aside className="flex flex-col h-full overflow-y-auto bg-[var(--color-bg1)]/40 border border-[var(--color-border)] rounded-2xl backdrop-blur-md">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-white/5 sticky top-0 bg-[#0F172A]/80 backdrop-blur-md z-10">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-border)] sticky top-0 bg-[var(--color-bg0)]/80 backdrop-blur-md z-10">
         <div className="flex items-center gap-2">
-          <SlidersHorizontal size={16} className="text-slate-400" />
-          <span className="font-sora font-semibold text-sm text-slate-100">Filters</span>
+          <SlidersHorizontal size={16} className="text-[var(--color-subtle)]" />
+          <span className="font-sora font-semibold text-sm text-[var(--color-text-heading)]">Filters</span>
           {activeFilterCount > 0 && (
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-lg bg-orange-600 text-white text-[10px] font-bold">
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-lg bg-orange-600 text-[var(--color-text-heading)] text-[10px] font-bold">
               {activeFilterCount}
             </span>
           )}
@@ -213,7 +213,7 @@ function Sidebar({
           {activeFilterCount > 0 && (
             <button
               onClick={clearAll}
-              className="text-xs text-orange-400 hover:text-orange-300 font-semibold transition-colors"
+              className="text-xs text-[#a365ff] hover:text-orange-300 font-semibold transition-colors"
             >
               Clear all
             </button>
@@ -221,10 +221,10 @@ function Sidebar({
           {onClose && (
             <button
               onClick={onClose}
-              className="lg:hidden p-1.5 rounded-lg hover:bg-white/5 transition-colors"
+              className="lg:hidden p-1.5 rounded-lg hover:bg-[var(--color-card)] transition-colors"
               aria-label="Close filters"
             >
-              <X size={18} className="text-slate-400" />
+              <X size={18} className="text-[var(--color-subtle)]" />
             </button>
           )}
         </div>
@@ -233,22 +233,22 @@ function Sidebar({
       <div className="flex-1 px-5 py-4 space-y-6 overflow-y-auto">
         {/* Search within results */}
         <div>
-          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2 font-inter">
+          <label className="block text-xs font-semibold text-[var(--color-subtle)] uppercase tracking-wide mb-2 font-inter">
             Search
           </label>
           <div className="relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)] pointer-events-none" />
             <Input
               type="text"
               placeholder="Search projects..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 h-10 text-sm bg-slate-950/40 border-white/10 text-slate-100 placeholder:text-slate-500 focus:bg-slate-950/60 focus:border-indigo-500/40 rounded-xl"
+              className="pl-8 h-10 text-sm bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:bg-[var(--color-input-bg)] focus:border-indigo-500/40 rounded-xl"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)] hover:text-[var(--color-muted)] transition-colors"
               >
                 <X size={13} />
               </button>
@@ -260,12 +260,12 @@ function Sidebar({
         <div>
           <button
             onClick={() => setSortOpen((p) => !p)}
-            className="flex w-full items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2 font-inter"
+            className="flex w-full items-center justify-between text-xs font-semibold text-[var(--color-subtle)] uppercase tracking-wide mb-2 font-inter"
           >
             Sort By
             <ChevronDown
               size={14}
-              className={cn('text-slate-500 transition-transform duration-200', sortOpen && 'rotate-180')}
+              className={cn('text-[var(--color-muted)] transition-transform duration-200', sortOpen && 'rotate-180')}
             />
           </button>
           <AnimatePresence initial={false}>
@@ -281,15 +281,15 @@ function Sidebar({
                   <select
                     value={sort}
                     onChange={(e) => setSort(e.target.value as SortValue)}
-                    className="w-full h-10 rounded-xl border border-white/10 bg-slate-950/40 text-sm text-slate-200 px-3 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500/40 transition"
+                    className="w-full h-10 rounded-xl border border-[var(--color-border)] bg-[var(--color-input-bg)] text-sm text-[var(--color-text)] px-3 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-[#7214ff]/20 focus:border-[#7214ff]/40 transition"
                   >
                     {SORT_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value} className="bg-slate-900 text-slate-200">
+                      <option key={opt.value} value={opt.value} className="bg-[var(--color-bg1)] text-[var(--color-text)]">
                         {opt.label}
                       </option>
                     ))}
                   </select>
-                  <ChevronDown size={13} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+                  <ChevronDown size={13} className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)] pointer-events-none" />
                 </div>
               </motion.div>
             )}
@@ -300,12 +300,12 @@ function Sidebar({
         <div>
           <button
             onClick={() => setCategoryOpen((p) => !p)}
-            className="flex w-full items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2 font-inter"
+            className="flex w-full items-center justify-between text-xs font-semibold text-[var(--color-subtle)] uppercase tracking-wide mb-2 font-inter"
           >
             Category
             <ChevronDown
               size={14}
-              className={cn('text-slate-500 transition-transform duration-200', categoryOpen && 'rotate-180')}
+              className={cn('text-[var(--color-muted)] transition-transform duration-200', categoryOpen && 'rotate-180')}
             />
           </button>
           <AnimatePresence initial={false}>
@@ -326,8 +326,8 @@ function Sidebar({
                         className={cn(
                           'flex items-center justify-between gap-2 rounded-xl px-3 py-2 cursor-pointer transition-all duration-150',
                           checked
-                            ? 'bg-orange-500/10 border border-orange-500/20'
-                            : 'hover:bg-white/5 border border-transparent'
+                            ? 'bg-[linear-gradient(135deg,#7214ff,#a365ff)]/10 border border-[#7214ff]/20'
+                            : 'hover:bg-[var(--color-card)] border border-transparent'
                         )}
                       >
                         <div className="flex items-center gap-2 min-w-0">
@@ -335,12 +335,12 @@ function Sidebar({
                             type="checkbox"
                             checked={checked}
                             onChange={() => toggleCategory(cat.slug)}
-                            className="w-3.5 h-3.5 rounded border-white/10 bg-slate-950/40 text-indigo-600 focus:ring-indigo-500 flex-shrink-0"
+                            className="w-3.5 h-3.5 rounded border-[var(--color-border)] bg-[var(--color-input-bg)] text-indigo-600 focus:ring-indigo-500 flex-shrink-0"
                           />
                           <span
                             className={cn(
                               'text-sm truncate font-inter',
-                              checked ? 'font-semibold text-orange-400' : 'font-medium text-slate-300'
+                              checked ? 'font-semibold text-[#a365ff]' : 'font-medium text-[var(--color-muted)]'
                             )}
                           >
                             {cat.name}
@@ -350,8 +350,8 @@ function Sidebar({
                           className={cn(
                             'text-[11px] font-semibold rounded-lg px-2 py-0.5 flex-shrink-0',
                             checked
-                              ? 'bg-orange-500/20 text-orange-400'
-                              : 'bg-slate-800 text-slate-400'
+                              ? 'bg-[linear-gradient(135deg,#7214ff,#a365ff)]/20 text-[#a365ff]'
+                              : 'bg-[var(--color-bg2)] text-[var(--color-subtle)]'
                           )}
                         >
                           {cat.count}
@@ -369,12 +369,12 @@ function Sidebar({
         <div>
           <button
             onClick={() => setPriceOpen((p) => !p)}
-            className="flex w-full items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2 font-inter"
+            className="flex w-full items-center justify-between text-xs font-semibold text-[var(--color-subtle)] uppercase tracking-wide mb-2 font-inter"
           >
             Price Range
             <ChevronDown
               size={14}
-              className={cn('text-slate-500 transition-transform duration-200', priceOpen && 'rotate-180')}
+              className={cn('text-[var(--color-muted)] transition-transform duration-200', priceOpen && 'rotate-180')}
             />
           </button>
           <AnimatePresence initial={false}>
@@ -389,7 +389,7 @@ function Sidebar({
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <div className="flex-1">
-                      <label className="block text-[11px] text-slate-500 mb-1 font-inter">Min (₹)</label>
+                      <label className="block text-[11px] text-[var(--color-muted)] mb-1 font-inter">Min (₹)</label>
                       <Input
                         type="number"
                         min={0}
@@ -397,12 +397,12 @@ function Sidebar({
                         placeholder="0"
                         value={minPrice}
                         onChange={(e) => setMinPrice(e.target.value)}
-                        className="h-9 text-sm bg-slate-950/40 border-white/10 text-slate-100 rounded-xl"
+                        className="h-9 text-sm bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] rounded-xl"
                       />
                     </div>
                     <span className="text-slate-600 mt-5">—</span>
                     <div className="flex-1">
-                      <label className="block text-[11px] text-slate-500 mb-1 font-inter">Max (₹)</label>
+                      <label className="block text-[11px] text-[var(--color-muted)] mb-1 font-inter">Max (₹)</label>
                       <Input
                         type="number"
                         min={0}
@@ -410,7 +410,7 @@ function Sidebar({
                         placeholder="5000"
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(e.target.value)}
-                        className="h-9 text-sm bg-slate-950/40 border-white/10 text-slate-100 rounded-xl"
+                        className="h-9 text-sm bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-heading)] rounded-xl"
                       />
                     </div>
                   </div>
@@ -429,8 +429,8 @@ function Sidebar({
                         className={cn(
                           'text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all duration-200',
                           minPrice === preset.min && maxPrice === preset.max
-                            ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10'
-                            : 'bg-slate-950/40 text-slate-400 border-white/10 hover:border-orange-500/40 hover:text-orange-400'
+                            ? 'bg-[linear-gradient(135deg,#7214ff,#a365ff)] text-[var(--color-text-heading)] border-[#7214ff] shadow-md shadow-[#7214ff]/10'
+                            : 'bg-[var(--color-input-bg)] text-[var(--color-subtle)] border-[var(--color-border)] hover:border-[#7214ff]/40 hover:text-[#a365ff]'
                         )}
                       >
                         {preset.label}
@@ -447,12 +447,12 @@ function Sidebar({
         <div>
           <button
             onClick={() => setDifficultyOpen((p) => !p)}
-            className="flex w-full items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2 font-inter"
+            className="flex w-full items-center justify-between text-xs font-semibold text-[var(--color-subtle)] uppercase tracking-wide mb-2 font-inter"
           >
             Difficulty
             <ChevronDown
               size={14}
-              className={cn('text-slate-500 transition-transform duration-200', difficultyOpen && 'rotate-180')}
+              className={cn('text-[var(--color-muted)] transition-transform duration-200', difficultyOpen && 'rotate-180')}
             />
           </button>
           <AnimatePresence initial={false}>
@@ -471,8 +471,8 @@ function Sidebar({
                       className={cn(
                         'flex items-center gap-2.5 rounded-xl px-3 py-2 cursor-pointer transition-all duration-150',
                         difficulty === opt.value
-                          ? 'bg-orange-500/10 border border-orange-500/20'
-                          : 'hover:bg-white/5 border border-transparent'
+                          ? 'bg-[linear-gradient(135deg,#7214ff,#a365ff)]/10 border border-[#7214ff]/20'
+                          : 'hover:bg-[var(--color-card)] border border-transparent'
                       )}
                     >
                       <input
@@ -481,7 +481,7 @@ function Sidebar({
                         value={opt.value}
                         checked={difficulty === opt.value}
                         onChange={() => setDifficulty(opt.value)}
-                        className="w-3.5 h-3.5 border-white/10 bg-slate-950/40 text-indigo-600 focus:ring-indigo-500"
+                        className="w-3.5 h-3.5 border-[var(--color-border)] bg-[var(--color-input-bg)] text-indigo-600 focus:ring-indigo-500"
                       />
                       {opt.value ? (
                         <span
@@ -498,7 +498,7 @@ function Sidebar({
                         <span
                           className={cn(
                             'text-sm font-medium font-inter',
-                            difficulty === '' ? 'text-orange-400' : 'text-slate-300'
+                            difficulty === '' ? 'text-[#a365ff]' : 'text-[var(--color-muted)]'
                           )}
                         >
                           {opt.label}
@@ -526,10 +526,10 @@ function EmptyState({ onClearFilters }: { onClearFilters: () => void }) {
       className="flex flex-col items-center justify-center py-24 px-6 text-center"
     >
       <div className="w-20 h-20 rounded-3xl bg-slate-100 flex items-center justify-center mb-5">
-        <Frown size={36} className="text-slate-400" />
+        <Frown size={36} className="text-[var(--color-subtle)]" />
       </div>
       <h3 className="font-sora font-bold text-xl text-slate-800 mb-2">No projects found</h3>
-      <p className="text-slate-500 text-sm max-w-sm mb-6 leading-relaxed">
+      <p className="text-[var(--color-muted)] text-sm max-w-sm mb-6 leading-relaxed">
         We couldn't find any projects matching your current filters. Try adjusting your search
         or clearing the filters to see all projects.
       </p>
@@ -573,8 +573,8 @@ function Pagination({ page, totalPages, setPage }: PaginationProps) {
         className={cn(
           'h-10 px-4 rounded-xl text-sm font-medium border transition-all duration-200',
           page === 1
-            ? 'opacity-30 cursor-not-allowed border-white/5 text-slate-500'
-            : 'border-white/10 text-slate-300 hover:border-orange-500/40 hover:text-orange-400 hover:bg-white/5'
+            ? 'opacity-30 cursor-not-allowed border-[var(--color-border)] text-[var(--color-muted)]'
+            : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[#7214ff]/40 hover:text-[#a365ff] hover:bg-[var(--color-card)]'
         )}
       >
         Prev
@@ -592,8 +592,8 @@ function Pagination({ page, totalPages, setPage }: PaginationProps) {
             className={cn(
               'w-10 h-10 rounded-xl text-sm font-medium border transition-all duration-200',
               p === page
-                ? 'bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/20'
-                : 'border-white/10 text-slate-300 hover:border-orange-500/40 hover:text-orange-400 hover:bg-white/5'
+                ? 'bg-[linear-gradient(135deg,#7214ff,#a365ff)] border-[#7214ff] text-[var(--color-text-heading)] shadow-lg shadow-[#7214ff]/20'
+                : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[#7214ff]/40 hover:text-[#a365ff] hover:bg-[var(--color-card)]'
             )}
           >
             {p}
@@ -607,8 +607,8 @@ function Pagination({ page, totalPages, setPage }: PaginationProps) {
         className={cn(
           'h-10 px-4 rounded-xl text-sm font-medium border transition-all duration-200',
           page === totalPages
-            ? 'opacity-30 cursor-not-allowed border-white/5 text-slate-500'
-            : 'border-white/10 text-slate-300 hover:border-orange-500/40 hover:text-orange-400 hover:bg-white/5'
+            ? 'opacity-30 cursor-not-allowed border-[var(--color-border)] text-[var(--color-muted)]'
+            : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[#7214ff]/40 hover:text-[#a365ff] hover:bg-[var(--color-card)]'
         )}
       >
         Next
@@ -864,20 +864,20 @@ export default function BrowsePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-slate-100">
+    <div className="min-h-screen bg-[var(--color-bg0)] text-[var(--color-text-heading)]">
       {/* ── Page Header ────────────────────────────────────────────────────── */}
-      <div className="bg-slate-900/35 border-b border-white/5 backdrop-blur-md relative overflow-hidden pt-28">
+      <div className="bg-[var(--color-bg1)]/35 border-b border-[var(--color-border)] backdrop-blur-md relative overflow-hidden pt-28">
         {/* Subtle background glow */}
-        <div className="absolute w-[400px] h-[250px] rounded-full bg-orange-500/5 -top-[100px] right-[10%] blur-[120px] pointer-events-none" />
+        <div className="absolute w-[400px] h-[250px] rounded-full bg-[linear-gradient(135deg,#7214ff,#a365ff)]/5 -top-[100px] right-[10%] blur-[120px] pointer-events-none" />
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 relative z-10">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-3">
-              <Badge variant="blue" className="text-[11px] bg-orange-500/10 text-orange-400 border border-orange-500/20 px-2.5 py-0.5 rounded-md">Catalogue</Badge>
+              <Badge variant="blue" className="text-[11px] bg-[linear-gradient(135deg,#7214ff,#a365ff)]/10 text-[#a365ff] border border-[#7214ff]/20 px-2.5 py-0.5 rounded-md">Catalogue</Badge>
             </div>
-            <h1 className="font-sora font-semibold text-2xl sm:text-3xl text-white leading-tight">
+            <h1 className="font-sora font-semibold text-2xl sm:text-3xl text-[var(--color-text-heading)] leading-tight">
               {filter === 'trending' ? 'Trending Projects' : filter === 'new' ? 'Newly Added' : filter === 'top-selling' ? 'Top Selling' : filter === 'featured' ? 'Featured Projects' : 'Browse All Projects'}
             </h1>
-            <p className="text-slate-400 text-sm mt-2 leading-relaxed font-inter">
+            <p className="text-[var(--color-subtle)] text-sm mt-2 leading-relaxed font-inter">
               {filter === 'trending' ? 'Discover the most popular projects right now.' : filter === 'new' ? 'Check out the latest projects just published by creators.' : filter === 'top-selling' ? 'Best-performing projects loved by thousands of buyers.' : filter === 'featured' ? 'Handpicked by our team for exceptional quality and impact.' : 'Explore our complete library of student and professional projects. Filter by category, difficulty, and budget to find what fits your needs.'}
             </p>
           </div>
@@ -899,33 +899,33 @@ export default function BrowsePage() {
           <div ref={mainRef} className="flex-1 min-w-0">
 
             {/* Toolbar */}
-            <div className="flex flex-wrap items-center gap-3 mb-6 bg-slate-900/35 border border-white/5 rounded-2xl p-3 backdrop-blur-md">
+            <div className="flex flex-wrap items-center gap-3 mb-6 bg-[var(--color-bg1)]/35 border border-[var(--color-border)] rounded-2xl p-3 backdrop-blur-md">
               {/* Mobile filter button */}
               <Button
                 variant="outline"
                 size="sm"
-                className="lg:hidden gap-2 flex-shrink-0 border-white/10 bg-white/5 text-slate-200 hover:bg-white/10 hover:border-white/20"
+                className="lg:hidden gap-2 flex-shrink-0 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] hover:bg-white/10 hover:border-white/20"
                 onClick={() => setDrawerOpen(true)}
               >
                 <Filter size={14} />
                 Filters
                 {activeFilterCount > 0 && (
-                  <span className="inline-flex items-center justify-center w-4 h-4 rounded bg-orange-600 text-white text-[10px] font-bold">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded bg-orange-600 text-[var(--color-text-heading)] text-[10px] font-bold">
                     {activeFilterCount}
                   </span>
                 )}
               </Button>
 
               {/* Result count */}
-              <p className="text-sm text-slate-400 flex-1 min-w-0 font-inter">
+              <p className="text-sm text-[var(--color-subtle)] flex-1 min-w-0 font-inter">
                 {isLoading ? (
-                  <span className="inline-block w-24 h-4 bg-slate-800 animate-pulse rounded" />
+                  <span className="inline-block w-24 h-4 bg-[var(--color-bg2)] animate-pulse rounded" />
                 ) : (
                   <>
-                    <span className="font-semibold text-slate-200">{totalCount}</span>{' '}
+                    <span className="font-semibold text-[var(--color-text)]">{totalCount}</span>{' '}
                     {totalCount === 1 ? 'result' : 'results'}
                     {activeFilterCount > 0 && (
-                      <span className="text-orange-400 font-semibold"> (filtered)</span>
+                      <span className="text-[#a365ff] font-semibold"> (filtered)</span>
                     )}
                   </>
                 )}
@@ -933,31 +933,31 @@ export default function BrowsePage() {
 
               {/* Sort (desktop inline) */}
               <div className="hidden sm:flex items-center gap-2 flex-shrink-0 font-inter">
-                <span className="text-xs text-slate-500 whitespace-nowrap">Sort:</span>
+                <span className="text-xs text-[var(--color-muted)] whitespace-nowrap">Sort:</span>
                 <div className="relative">
                   <select
                     value={sort}
                     onChange={(e) => handleSetSort(e.target.value as SortValue)}
-                    className="h-9 rounded-xl border border-white/10 bg-slate-950/40 text-sm text-slate-300 pl-3 pr-7 appearance-none focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500/40 transition"
+                    className="h-9 rounded-xl border border-[var(--color-border)] bg-[var(--color-input-bg)] text-sm text-[var(--color-muted)] pl-3 pr-7 appearance-none focus:outline-none focus:ring-2 focus:ring-[#7214ff]/20 focus:border-[#7214ff]/40 transition"
                   >
                     {SORT_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value} className="bg-slate-900 text-slate-200">{opt.label}</option>
+                      <option key={opt.value} value={opt.value} className="bg-[var(--color-bg1)] text-[var(--color-text)]">{opt.label}</option>
                     ))}
                   </select>
-                  <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+                  <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--color-muted)] pointer-events-none" />
                 </div>
               </div>
 
               {/* View toggle */}
-              <div className="hidden md:flex items-center gap-1 bg-slate-950/30 border border-white/5 rounded-xl p-1 flex-shrink-0">
+              <div className="hidden md:flex items-center gap-1 bg-[var(--color-bg0)]/30 border border-[var(--color-border)] rounded-xl p-1 flex-shrink-0">
                 <button
                   onClick={() => setViewMode('grid')}
                   aria-label="Grid view"
                   className={cn(
                     'p-1.5 rounded-lg transition-all duration-150',
                     viewMode === 'grid'
-                      ? 'bg-orange-500 text-white shadow-md'
-                      : 'text-slate-500 hover:text-slate-300'
+                      ? 'bg-[linear-gradient(135deg,#7214ff,#a365ff)] text-[var(--color-text-heading)] shadow-md'
+                      : 'text-[var(--color-muted)] hover:text-[var(--color-muted)]'
                   )}
                 >
                   <Grid3X3 size={15} />
@@ -968,8 +968,8 @@ export default function BrowsePage() {
                   className={cn(
                     'p-1.5 rounded-lg transition-all duration-150',
                     viewMode === 'list'
-                      ? 'bg-orange-500 text-white shadow-md'
-                      : 'text-slate-500 hover:text-slate-300'
+                      ? 'bg-[linear-gradient(135deg,#7214ff,#a365ff)] text-[var(--color-text-heading)] shadow-md'
+                      : 'text-[var(--color-muted)] hover:text-[var(--color-muted)]'
                   )}
                 >
                   <List size={15} />
@@ -998,7 +998,7 @@ export default function BrowsePage() {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.8, opacity: 0 }}
                         onClick={clearAll}
-                        className="text-xs text-slate-400 hover:text-red-400 font-semibold transition-colors underline underline-offset-2 font-inter"
+                        className="text-xs text-[var(--color-subtle)] hover:text-red-400 font-semibold transition-colors underline underline-offset-2 font-inter"
                       >
                         Clear all
                       </motion.button>
@@ -1043,6 +1043,7 @@ export default function BrowsePage() {
                 {paginatedProjects.map((project, i) => (
                   <motion.div
                     key={project.id}
+                    className="h-full"
                     variants={{
                       hidden: { opacity: 0, y: 18 },
                       visible: { opacity: 1, y: 0, transition: { duration: 0.38, ease: 'easeOut' } },
@@ -1075,7 +1076,7 @@ export default function BrowsePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-slate-950/60 z-40 lg:hidden backdrop-blur-sm"
+              className="fixed inset-0 bg-[var(--color-input-bg)] z-40 lg:hidden backdrop-blur-sm"
               onClick={() => setDrawerOpen(false)}
             />
             {/* Drawer */}
@@ -1084,7 +1085,7 @@ export default function BrowsePage() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed inset-y-0 left-0 z-50 w-80 max-w-full bg-[#0E1322] border-r border-white/5 shadow-2xl flex flex-col lg:hidden"
+              className="fixed inset-y-0 left-0 z-50 w-80 max-w-full bg-[var(--color-bg1)] border-r border-[var(--color-border)] shadow-2xl flex flex-col lg:hidden"
             >
               <div className="flex-1 overflow-y-auto p-4">
                 <Sidebar
@@ -1092,9 +1093,9 @@ export default function BrowsePage() {
                   onClose={() => setDrawerOpen(false)}
                 />
               </div>
-              <div className="p-4 border-t border-white/5 bg-[#0B0F19]">
+              <div className="p-4 border-t border-[var(--color-border)] bg-[var(--color-bg0)]">
                 <Button
-                  className="w-full h-11 bg-orange-500 hover:bg-orange-400 text-white rounded-xl shadow-lg shadow-orange-500/20 font-semibold"
+                  className="w-full h-11 bg-[linear-gradient(135deg,#7214ff,#a365ff)] hover:bg-orange-400 text-[var(--color-text-heading)] rounded-xl shadow-lg shadow-[#7214ff]/20 font-semibold"
                   onClick={() => setDrawerOpen(false)}
                 >
                   Show {totalCount} results

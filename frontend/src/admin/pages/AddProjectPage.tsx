@@ -33,7 +33,7 @@ const DIFFICULTIES: { value: DifficultyLevel; label: string }[] = [{ value: 'beg
 const PROJECT_TYPES: { value: ProjectType; label: string }[] = [{ value: 'admin', label: 'Admin (Platform Project)' },{ value: 'student', label: 'Student Submission' }]
 
 const FieldLabel: React.FC<{ children: React.ReactNode; required?: boolean; className?: string }> = ({ children, required, className }) => (
-  <label className={cn('block text-sm font-medium text-slate-700 mb-1.5', className)}>
+  <label className={cn('block text-sm font-medium text-heading mb-1.5', className)}>
     {children}{required && <span className="text-red-500 ml-0.5">*</span>}
   </label>
 )
@@ -52,16 +52,16 @@ const TagInput: React.FC<TagInputProps> = ({ label, placeholder, tags, onChange,
       <FieldLabel>{label}</FieldLabel>
       <div className="flex gap-2 mb-2">
         <div className="relative flex-1">
-          {icon && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">{icon}</span>}
-          <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKey} placeholder={placeholder} className={cn('w-full h-10 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all', icon ? 'pl-9 pr-4' : 'px-4')} />
+          {icon && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-subtle pointer-events-none">{icon}</span>}
+          <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKey} placeholder={placeholder} className={cn('w-full h-10 rounded-xl border border-border bg-card text-sm text-heading placeholder:text-subtle focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all', icon ? 'pl-9 pr-4' : 'px-4')} />
         </div>
         <button type="button" onClick={add} className="h-10 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-600 transition-colors border border-blue-200"><Plus size={16} /></button>
       </div>
       {tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {tags.map((tag) => (
-            <span key={tag} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-medium">
-              {tag}<button type="button" onClick={() => remove(tag)} className="text-slate-400 hover:text-red-500 transition-colors"><X size={12} /></button>
+            <span key={tag} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[var(--color-bg2)] text-heading text-xs font-medium">
+              {tag}<button type="button" onClick={() => remove(tag)} className="text-subtle hover:text-red-500 transition-colors"><X size={12} /></button>
             </span>
           ))}
         </div>
@@ -77,21 +77,21 @@ const FileDrop: React.FC<FileDropProps> = ({ label, accept, multiple, icon, desc
   return (
     <div>
       <FieldLabel>{label}</FieldLabel>
-      <div {...getRootProps()} className={cn('border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200', isDragActive ? 'border-blue-500 bg-blue-50' : 'border-slate-200 bg-slate-50 hover:border-blue-400 hover:bg-blue-50/50')}>
+      <div {...getRootProps()} className={cn('border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200', isDragActive ? 'border-blue-500 bg-blue-50' : 'border-border bg-[var(--color-bg1)] hover:border-blue-400 hover:bg-blue-50/50')}>
         <input {...getInputProps()} />
-        <div className="flex flex-col items-center gap-2 text-slate-500">
+        <div className="flex flex-col items-center gap-2 text-muted">
           {icon}
-          <p className="text-sm font-medium text-slate-700">{isDragActive ? 'Drop files here...' : 'Drag & drop or click to upload'}</p>
-          <p className="text-xs text-slate-400">{description}</p>
+          <p className="text-sm font-medium text-heading">{isDragActive ? 'Drop files here...' : 'Drag & drop or click to upload'}</p>
+          <p className="text-xs text-subtle">{description}</p>
         </div>
       </div>
       {files.length > 0 && (
         <ul className="mt-2.5 space-y-1.5">
           {files.map((f, i) => (
-            <li key={`${f.name}-${i}`} className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-100 text-sm">
-              <span className="truncate text-slate-700 flex-1">{f.name}</span>
-              <span className="text-xs text-slate-400 mx-3 shrink-0">{(f.size / 1024).toFixed(0)} KB</span>
-              <button type="button" onClick={() => onRemove(i)} className="text-slate-400 hover:text-red-500 transition-colors shrink-0"><X size={14} /></button>
+            <li key={`${f.name}-${i}`} className="flex items-center justify-between px-3 py-2 rounded-lg bg-[var(--color-bg2)] text-sm">
+              <span className="truncate text-heading flex-1">{f.name}</span>
+              <span className="text-xs text-subtle mx-3 shrink-0">{(f.size / 1024).toFixed(0)} KB</span>
+              <button type="button" onClick={() => onRemove(i)} className="text-subtle hover:text-red-500 transition-colors shrink-0"><X size={14} /></button>
             </li>
           ))}
         </ul>
@@ -101,8 +101,8 @@ const FileDrop: React.FC<FileDropProps> = ({ label, accept, multiple, icon, desc
 }
 
 const FormSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
-  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
-    <h3 className="font-sora font-semibold text-base text-slate-900 pb-3 border-b border-slate-100">{title}</h3>
+  <div className="bg-card rounded-2xl border border-border shadow-sm p-6 space-y-5">
+    <h3 className="font-sora font-semibold text-base text-heading pb-3 border-b border-slate-100">{title}</h3>
     {children}
   </div>
 )
@@ -142,7 +142,7 @@ const AddProjectPage: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <FieldLabel required>Domain</FieldLabel>
-              <select {...register('domain')} className={cn('w-full h-12 rounded-xl border bg-white px-4 text-sm text-slate-900 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all', errors.domain ? 'border-red-400' : 'border-slate-200')}>
+              <select {...register('domain')} className={cn('w-full h-12 rounded-xl border bg-card px-4 text-sm text-heading appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all', errors.domain ? 'border-red-400' : 'border-border')}>
                 <option value="">Select domain</option>
                 {DOMAINS.map((d) => <option key={d} value={d}>{d}</option>)}
               </select>
@@ -151,7 +151,7 @@ const AddProjectPage: React.FC = () => {
             <div>
               <FieldLabel required>Difficulty</FieldLabel>
               <Controller name="difficulty" control={control} render={({ field }) => (
-                <select {...field} className={cn('w-full h-12 rounded-xl border bg-white px-4 text-sm text-slate-900 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all', errors.difficulty ? 'border-red-400' : 'border-slate-200')}>
+                <select {...field} className={cn('w-full h-12 rounded-xl border bg-card px-4 text-sm text-heading appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all', errors.difficulty ? 'border-red-400' : 'border-border')}>
                   {DIFFICULTIES.map((d) => <option key={d.value} value={d.value}>{d.label}</option>)}
                 </select>
               )} />
@@ -160,7 +160,7 @@ const AddProjectPage: React.FC = () => {
             <div>
               <FieldLabel required>Project Type</FieldLabel>
               <Controller name="type" control={control} render={({ field }) => (
-                <select {...field} className={cn('w-full h-12 rounded-xl border bg-white px-4 text-sm text-slate-900 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all', errors.type ? 'border-red-400' : 'border-slate-200')}>
+                <select {...field} className={cn('w-full h-12 rounded-xl border bg-card px-4 text-sm text-heading appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all', errors.type ? 'border-red-400' : 'border-border')}>
                   {PROJECT_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
                 </select>
               )} />
@@ -171,7 +171,7 @@ const AddProjectPage: React.FC = () => {
         </FormSection>
 
         <FormSection title="Descriptions">
-          <div><FieldLabel required>Short Description</FieldLabel><Textarea {...register('shortDescription')} placeholder="A brief one-to-two sentence summary shown in project cards (20–200 characters)" className="min-h-[80px]" error={errors.shortDescription?.message} /><p className="mt-1 text-xs text-slate-400">Used in listing cards and search results.</p></div>
+          <div><FieldLabel required>Short Description</FieldLabel><Textarea {...register('shortDescription')} placeholder="A brief one-to-two sentence summary shown in project cards (20–200 characters)" className="min-h-[80px]" error={errors.shortDescription?.message} /><p className="mt-1 text-xs text-subtle">Used in listing cards and search results.</p></div>
           <div><FieldLabel required>Long Description</FieldLabel><Textarea {...register('longDescription')} placeholder="Detailed description of the project — features, architecture, use cases, technical highlights..." className="min-h-[160px]" error={errors.longDescription?.message} /></div>
         </FormSection>
 
@@ -188,8 +188,8 @@ const AddProjectPage: React.FC = () => {
         </FormSection>
 
         <FormSection title="Files & Media">
-          <FileDrop label="Project Screenshots / Thumbnails" accept={{ 'image/*': ['.png','.jpg','.jpeg','.webp','.gif'] }} multiple icon={<ImageIcon size={28} className="text-slate-400" />} description="PNG, JPG, WebP — you can upload multiple images" files={imageFiles} onFiles={setImageFiles} onRemove={(i) => setImageFiles((prev) => prev.filter((_, idx) => idx !== i))} />
-          <FileDrop label="Project ZIP File" accept={{ 'application/zip': ['.zip'], 'application/x-zip-compressed': ['.zip'] }} multiple={false} icon={<FileArchive size={28} className="text-slate-400" />} description="ZIP archive containing the full project source code" files={zipFiles} onFiles={(f) => setZipFiles(f)} onRemove={(i) => setZipFiles((prev) => prev.filter((_, idx) => idx !== i))} />
+          <FileDrop label="Project Screenshots / Thumbnails" accept={{ 'image/*': ['.png','.jpg','.jpeg','.webp','.gif'] }} multiple icon={<ImageIcon size={28} className="text-subtle" />} description="PNG, JPG, WebP — you can upload multiple images" files={imageFiles} onFiles={setImageFiles} onRemove={(i) => setImageFiles((prev) => prev.filter((_, idx) => idx !== i))} />
+          <FileDrop label="Project ZIP File" accept={{ 'application/zip': ['.zip'], 'application/x-zip-compressed': ['.zip'] }} multiple={false} icon={<FileArchive size={28} className="text-subtle" />} description="ZIP archive containing the full project source code" files={zipFiles} onFiles={(f) => setZipFiles(f)} onRemove={(i) => setZipFiles((prev) => prev.filter((_, idx) => idx !== i))} />
         </FormSection>
 
         <div className="flex items-center justify-end gap-3 pt-2 pb-8">

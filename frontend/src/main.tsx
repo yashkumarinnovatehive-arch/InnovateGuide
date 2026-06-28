@@ -2,6 +2,7 @@ import { StrictMode, Component, ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'sonner'
+import { ThemeProvider } from '@shared/contexts/ThemeContext'
 import App from './App'
 import './index.css'
 
@@ -37,9 +38,12 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <App />
-        <Toaster position="top-right" richColors />
+        <ThemeProvider>
+          <App />
+          <Toaster position="top-right" richColors />
+        </ThemeProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   </StrictMode>
 )
+

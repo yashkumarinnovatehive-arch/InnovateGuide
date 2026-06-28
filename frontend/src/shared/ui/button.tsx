@@ -18,9 +18,9 @@ const buttonVariants = cva(
           'border text-white backdrop-blur-sm focus-visible:ring-violet-500',
         // White pill CTA (Evolvion "Get a quote" / "Book a Call")
         outline:
-          'bg-white text-slate-900 hover:bg-slate-100 shadow-md focus-visible:ring-white',
+          'bg-card text-heading hover:bg-[var(--color-bg2)] shadow-md focus-visible:ring-white',
         ghost:
-          'bg-transparent text-slate-300 hover:bg-white/5 hover:text-white focus-visible:ring-slate-400',
+          'bg-transparent text-slate-300 hover:bg-card/5 hover:text-white focus-visible:ring-slate-400',
         'accent-gradient':
           'text-white shadow-lg focus-visible:ring-violet-500',
         destructive:

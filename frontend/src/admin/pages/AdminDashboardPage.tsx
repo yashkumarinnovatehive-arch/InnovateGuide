@@ -141,13 +141,13 @@ const StatCard: React.FC<StatCardProps> = ({ icon: Icon, color, label, value, li
             <Icon size={22} />
           </div>
           <div>
-            <p className="text-3xl font-bold font-sora text-slate-900">{value}</p>
-            <p className="text-sm text-slate-500 font-inter mt-0.5">{label}</p>
+            <p className="text-3xl font-bold font-sora text-heading">{value}</p>
+            <p className="text-sm text-muted font-inter mt-0.5">{label}</p>
           </div>
         </div>
         <Link
           to={link}
-          className="shrink-0 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors"
+          className="shrink-0 w-8 h-8 rounded-full bg-[var(--color-bg2)] hover:bg-slate-200 flex items-center justify-center text-muted transition-colors"
           aria-label={`View ${label}`}
         >
           <ArrowRight size={16} />
@@ -160,9 +160,9 @@ const StatCard: React.FC<StatCardProps> = ({ icon: Icon, color, label, value, li
 const PieTooltip = ({ active, payload }: { active?: boolean; payload?: { name: string; value: number }[] }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-slate-200 rounded-lg px-3 py-2 shadow-lg text-sm">
-        <span className="font-semibold text-slate-800">{payload[0].name}:</span>{' '}
-        <span className="text-slate-600">{payload[0].value}</span>
+      <div className="bg-card border border-border rounded-lg px-3 py-2 shadow-lg text-sm">
+        <span className="font-semibold text-heading">{payload[0].name}:</span>{' '}
+        <span className="text-muted">{payload[0].value}</span>
       </div>
     )
   }
@@ -189,13 +189,13 @@ const AdminDashboardPage: React.FC = () => {
   const paginatedProjects = MOCK_PROJECTS.slice((page - 1) * ROWS_PER_PAGE, page * ROWS_PER_PAGE)
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-[var(--color-bg1)] flex flex-col">
       <AdminHeader title="Dashboard" subtitle="Overview of your platform activity" />
 
       <main className="flex-1 px-6 py-8 space-y-8 max-w-screen-2xl mx-auto w-full">
 
         <section>
-          <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">
+          <h2 className="text-sm font-semibold text-subtle uppercase tracking-widest mb-4">
             Platform Overview
           </h2>
           <motion.div
@@ -211,7 +211,7 @@ const AdminDashboardPage: React.FC = () => {
         </section>
 
         <section>
-          <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">
+          <h2 className="text-sm font-semibold text-subtle uppercase tracking-widest mb-4">
             Analytics
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -278,7 +278,7 @@ const AdminDashboardPage: React.FC = () => {
                         className="w-2.5 h-2.5 rounded-full shrink-0"
                         style={{ backgroundColor: CHART_COLORS[index % CHART_COLORS.length] }}
                       />
-                      <span className="text-xs text-slate-500">{item.name}</span>
+                      <span className="text-xs text-muted">{item.name}</span>
                     </div>
                   ))}
                 </div>
@@ -310,7 +310,7 @@ const AdminDashboardPage: React.FC = () => {
         </section>
 
         <section>
-          <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">
+          <h2 className="text-sm font-semibold text-subtle uppercase tracking-widest mb-4">
             Quick Actions
           </h2>
           <div className="flex flex-wrap gap-3">
@@ -336,7 +336,7 @@ const AdminDashboardPage: React.FC = () => {
 
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-widest">
+            <h2 className="text-sm font-semibold text-subtle uppercase tracking-widest">
               Recent Projects
             </h2>
             <Button asChild variant="outline" size="sm" className="gap-1.5 text-xs">
@@ -351,13 +351,13 @@ const AdminDashboardPage: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-100 bg-slate-50">
-                    <th className="text-left px-5 py-3 font-semibold text-slate-500 text-xs uppercase tracking-wider">Title</th>
-                    <th className="text-left px-5 py-3 font-semibold text-slate-500 text-xs uppercase tracking-wider">Type</th>
-                    <th className="text-left px-5 py-3 font-semibold text-slate-500 text-xs uppercase tracking-wider">Price</th>
-                    <th className="text-left px-5 py-3 font-semibold text-slate-500 text-xs uppercase tracking-wider">Domain</th>
-                    <th className="text-left px-5 py-3 font-semibold text-slate-500 text-xs uppercase tracking-wider">Status</th>
-                    <th className="text-right px-5 py-3 font-semibold text-slate-500 text-xs uppercase tracking-wider">Actions</th>
+                  <tr className="border-b border-slate-100 bg-[var(--color-bg1)]">
+                    <th className="text-left px-5 py-3 font-semibold text-muted text-xs uppercase tracking-wider">Title</th>
+                    <th className="text-left px-5 py-3 font-semibold text-muted text-xs uppercase tracking-wider">Type</th>
+                    <th className="text-left px-5 py-3 font-semibold text-muted text-xs uppercase tracking-wider">Price</th>
+                    <th className="text-left px-5 py-3 font-semibold text-muted text-xs uppercase tracking-wider">Domain</th>
+                    <th className="text-left px-5 py-3 font-semibold text-muted text-xs uppercase tracking-wider">Status</th>
+                    <th className="text-right px-5 py-3 font-semibold text-muted text-xs uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <motion.tbody
@@ -369,9 +369,9 @@ const AdminDashboardPage: React.FC = () => {
                     <motion.tr
                       key={project.id}
                       variants={itemVariants}
-                      className="border-b border-slate-50 hover:bg-slate-50 transition-colors"
+                      className="border-b border-slate-50 hover:bg-[var(--color-bg1)] transition-colors"
                     >
-                      <td className="px-5 py-3.5 font-medium text-slate-800 max-w-xs truncate">
+                      <td className="px-5 py-3.5 font-medium text-heading max-w-xs truncate">
                         {project.title}
                       </td>
                       <td className="px-5 py-3.5">
@@ -381,14 +381,14 @@ const AdminDashboardPage: React.FC = () => {
                           <Badge variant="purple">Student</Badge>
                         )}
                       </td>
-                      <td className="px-5 py-3.5 text-slate-600">
+                      <td className="px-5 py-3.5 text-muted">
                         {project.price !== null ? (
                           <span className="font-medium">₹{project.price.toLocaleString('en-IN')}</span>
                         ) : (
-                          <span className="text-slate-400 text-xs italic">Free</span>
+                          <span className="text-subtle text-xs italic">Free</span>
                         )}
                       </td>
-                      <td className="px-5 py-3.5 text-slate-600">{project.domain}</td>
+                      <td className="px-5 py-3.5 text-muted">{project.domain}</td>
                       <td className="px-5 py-3.5">
                         <Badge variant={statusBadgeMap[project.status]}>
                           {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
@@ -398,13 +398,13 @@ const AdminDashboardPage: React.FC = () => {
                         <div className="flex items-center justify-end gap-2">
                           <Link
                             to={`/admin/projects/edit/${project.id}`}
-                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 hover:bg-blue-100 hover:text-blue-600 text-slate-500 transition-colors"
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-[var(--color-bg2)] hover:bg-blue-100 hover:text-blue-600 text-muted transition-colors"
                             aria-label={`Edit ${project.title}`}
                           >
                             <Pencil size={14} />
                           </Link>
                           <button
-                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 hover:bg-red-100 hover:text-red-600 text-slate-500 transition-colors"
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-[var(--color-bg2)] hover:bg-red-100 hover:text-red-600 text-muted transition-colors"
                             aria-label={`Delete ${project.title}`}
                             onClick={() => {}}
                           >
@@ -418,19 +418,19 @@ const AdminDashboardPage: React.FC = () => {
               </table>
             </div>
 
-            <div className="flex items-center justify-between px-5 py-3.5 border-t border-slate-100 bg-slate-50/50">
-              <p className="text-xs text-slate-500">
+            <div className="flex items-center justify-between px-5 py-3.5 border-t border-slate-100 bg-[var(--color-bg1)]/50">
+              <p className="text-xs text-muted">
                 Showing{' '}
-                <span className="font-semibold text-slate-700">
+                <span className="font-semibold text-heading">
                   {(page - 1) * ROWS_PER_PAGE + 1}–{Math.min(page * ROWS_PER_PAGE, MOCK_PROJECTS.length)}
                 </span>{' '}
-                of <span className="font-semibold text-slate-700">{MOCK_PROJECTS.length}</span> projects
+                of <span className="font-semibold text-heading">{MOCK_PROJECTS.length}</span> projects
               </p>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-border bg-card text-muted disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--color-bg2)] transition-colors"
                   aria-label="Previous page"
                 >
                   <ChevronLeft size={15} />
@@ -442,7 +442,7 @@ const AdminDashboardPage: React.FC = () => {
                     className={`w-8 h-8 flex items-center justify-center rounded-lg text-xs font-semibold transition-colors ${
                       p === page
                         ? 'bg-blue-600 text-white border border-blue-600'
-                        : 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-100'
+                        : 'border border-border bg-card text-muted hover:bg-[var(--color-bg2)]'
                     }`}
                     aria-label={`Page ${p}`}
                     aria-current={p === page ? 'page' : undefined}
@@ -453,7 +453,7 @@ const AdminDashboardPage: React.FC = () => {
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-border bg-card text-muted disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--color-bg2)] transition-colors"
                   aria-label="Next page"
                 >
                   <ChevronRight size={15} />

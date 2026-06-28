@@ -11,6 +11,7 @@ import BrowsePage from '@user/pages/BrowsePage'
 import ProjectDetailPage from '@user/pages/ProjectDetailPage'
 import CustomRequestPage from '@user/pages/CustomRequestPage'
 import UploadProjectPage from '@user/pages/UploadProjectPage'
+import BuyProjectPage from '@user/pages/BuyProjectPage'
 import LoginPage from '@user/pages/LoginPage'
 import NotFoundPage from '@user/pages/NotFoundPage'
 import StaticPage from '@user/pages/StaticPage'
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/browse" element={<BrowsePage />} />
           <Route path="/projects/:id" element={<ProjectDetailPage />} />
+          <Route path="/buy/:id" element={<BuyProjectPage />} />
           <Route path="/custom-project" element={<CustomRequestPage />} />
           <Route path="/upload" element={<UploadProjectPage />} />
           <Route path="/how-it-works" element={<StaticPage />} />

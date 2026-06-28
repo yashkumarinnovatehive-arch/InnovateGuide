@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Eye, Edit, Plus, Search, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@ui/button'
 import { Badge } from '@ui/badge'
@@ -10,23 +10,27 @@ import { formatPrice, formatDate, truncate } from '@utils/index'
 const PAGE_SIZE = 10
 
 const AdminProjectsPage: React.FC = () => {
+  const location = useLocation()
+  const isAllProjects = location.pathname === '/admin/projects'
+  const pageTitle = isAllProjects ? 'All Projects' : 'Admin Projects'
+
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
 
-  const adminProjects = useMemo(
-    () => MOCK_PROJECTS.filter((p) => p.type === 'admin'),
-    []
+  const displayedProjects = useMemo(
+    () => isAllProjects ? MOCK_PROJECTS : MOCK_PROJECTS.filter((p) => p.type === 'admin'),
+    [isAllProjects]
   )
 
   const filtered = useMemo(() => {
     const q = searchQuery.toLowerCase().trim()
-    if (!q) return adminProjects
-    return adminProjects.filter(
+    if (!q) return displayedProjects
+    return displayedProjects.filter(
       (p) =>
         p.title.toLowerCase().includes(q) ||
         p.domain.toLowerCase().includes(q)
     )
-  }, [adminProjects, searchQuery])
+  }, [displayedProjects, searchQuery])
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
 
@@ -46,7 +50,7 @@ const AdminProjectsPage: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <AdminHeader title="Admin Projects" subtitle={`${filtered.length} project${filtered.length !== 1 ? 's' : ''} found`} />
+      <AdminHeader title={pageTitle} subtitle={`${filtered.length} project${filtered.length !== 1 ? 's' : ''} found`} />
 
       <div className="flex items-center gap-3 flex-wrap">
         <Link to="/admin/dashboard">
@@ -73,11 +77,11 @@ const AdminProjectsPage: React.FC = () => {
           value={searchQuery}
           onChange={handleSearch}
           placeholder="Search by title or domain…"
-          className="w-full pl-9 pr-4 py-2 text-sm font-inter bg-white border border-border rounded-lg text-primary-900 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-150"
+          className="w-full pl-9 pr-4 py-2 text-sm font-inter bg-card border border-border rounded-lg text-heading placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-150"
         />
       </div>
 
-      <div className="rounded-xl border border-border shadow-card overflow-hidden bg-white">
+      <div className="rounded-xl border border-border shadow-card overflow-hidden bg-card">
         <div className="overflow-x-auto">
           <table className="w-full text-sm font-inter">
             <thead>
@@ -100,8 +104,8 @@ const AdminProjectsPage: React.FC = () => {
                 </tr>
               ) : (
                 paginated.map((project) => (
-                  <tr key={project.id} className="bg-white hover:bg-slate-50 transition-colors duration-100">
-                    <td className="px-5 py-3.5 font-medium text-primary-900 whitespace-nowrap">{project.title}</td>
+                  <tr key={project.id} className="bg-card hover:bg-[var(--color-bg1)] transition-colors duration-100">
+                    <td className="px-5 py-3.5 font-medium text-heading whitespace-nowrap">{project.title}</td>
                     <td className="px-5 py-3.5 text-muted max-w-xs">{truncate(project.description, 50)}</td>
                     <td className="px-5 py-3.5 whitespace-nowrap">
                       <Badge variant="blue">{formatPrice(project.price)}</Badge>
@@ -132,7 +136,7 @@ const AdminProjectsPage: React.FC = () => {
         </div>
 
         {totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-border px-5 py-3 bg-white">
+          <div className="flex items-center justify-between border-t border-border px-5 py-3 bg-card">
             <p className="text-xs font-inter text-muted">
               Page {currentPage} of {totalPages} &mdash; {filtered.length} total
             </p>
@@ -140,7 +144,7 @@ const AdminProjectsPage: React.FC = () => {
               <button
                 onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="p-1.5 rounded-lg text-primary-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors duration-150"
+                className="p-1.5 rounded-lg text-heading hover:bg-[var(--color-bg2)] disabled:opacity-40 disabled:pointer-events-none transition-colors duration-150"
               >
                 <ChevronLeft size={16} />
               </button>
@@ -149,7 +153,7 @@ const AdminProjectsPage: React.FC = () => {
                   key={page}
                   onClick={() => goToPage(page)}
                   className={`h-7 w-7 rounded-lg text-xs font-inter font-medium transition-colors duration-150 ${
-                    page === currentPage ? 'bg-[#1E3A5F] text-white' : 'text-primary-600 hover:bg-slate-100'
+                    page === currentPage ? 'bg-[#1E3A5F] text-white' : 'text-heading hover:bg-[var(--color-bg2)]'
                   }`}
                 >
                   {page}
@@ -158,7 +162,7 @@ const AdminProjectsPage: React.FC = () => {
               <button
                 onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="p-1.5 rounded-lg text-primary-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors duration-150"
+                className="p-1.5 rounded-lg text-heading hover:bg-[var(--color-bg2)] disabled:opacity-40 disabled:pointer-events-none transition-colors duration-150"
               >
                 <ChevronRight size={16} />
               </button>

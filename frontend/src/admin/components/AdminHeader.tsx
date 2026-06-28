@@ -8,11 +8,11 @@ interface AdminHeaderProps {
 
 const AdminHeader = ({ title, subtitle, showSearch = false }: AdminHeaderProps) => {
   return (
-    <header className="sticky top-0 z-20 bg-white border-b border-border px-8 py-4">
+    <header className="sticky top-0 z-20 bg-card border-b border-border px-8 py-4">
       <div className="flex items-center justify-between gap-6">
 
         <div className="flex flex-col min-w-0">
-          <h1 className="font-sora font-bold text-2xl text-primary-900 leading-tight truncate">
+          <h1 className="font-sora font-bold text-headingxl text-heading leading-tight truncate">
             {title}
           </h1>
           {subtitle && (
@@ -33,7 +33,7 @@ const AdminHeader = ({ title, subtitle, showSearch = false }: AdminHeaderProps) 
               <input
                 type="text"
                 placeholder="Search..."
-                className="pl-9 pr-4 py-2 w-56 text-sm font-inter bg-background border border-border rounded-lg text-primary-900 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-150"
+                className="pl-9 pr-4 py-2 w-56 text-sm font-inter bg-background border border-border rounded-lg text-heading placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-150"
               />
             </div>
           )}
@@ -44,7 +44,7 @@ const AdminHeader = ({ title, subtitle, showSearch = false }: AdminHeaderProps) 
             </div>
 
             <div className="flex flex-col leading-tight">
-              <span className="text-sm font-inter font-semibold text-primary-900">
+              <span className="text-sm font-inter font-semibold text-heading">
                 Admin User
               </span>
               <span className="inline-flex items-center self-start px-1.5 py-0.5 rounded bg-accent/10 text-accent text-[10px] font-inter font-semibold uppercase tracking-wider leading-none mt-0.5">

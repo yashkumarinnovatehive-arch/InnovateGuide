@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Layers } from "lucide-react";
+import { Menu, X, Layers, Sun, Moon } from "lucide-react";
+import { useTheme } from "@shared/contexts/ThemeContext";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -27,6 +28,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { isDark, toggleTheme } = useTheme();
 
   const isActive = (href: string) => {
     if (href === "/") return location.pathname === "/";
@@ -41,7 +43,7 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex justify-center"
       style={{ paddingTop: 12 }}
     >
-      {/* ── Floating pill nav (Evolvion style) ── */}
+      {/* ── Floating pill nav ── */}
       <motion.nav
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -49,16 +51,21 @@ export default function Navbar() {
         className="w-full max-w-5xl mx-4"
       >
         <div
-          className="flex items-center justify-between h-14 px-5 rounded-2xl border border-white/8"
+          className="flex items-center justify-between h-14 px-5 rounded-2xl transition-all duration-300"
           style={{
             background: scrolled
-              ? "rgba(10,13,26,0.92)"
-              : "rgba(10,13,26,0.75)",
+              ? 'var(--color-navbar-bg-scrolled)'
+              : 'var(--color-navbar-bg)',
             backdropFilter: "blur(20px)",
             WebkitBackdropFilter: "blur(20px)",
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
             boxShadow: scrolled
-              ? "0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05)"
-              : "0 4px 20px rgba(0,0,0,0.3)",
+              ? isDark
+                ? "0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05)"
+                : "0 4px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
+              : isDark
+                ? "0 4px 20px rgba(0,0,0,0.3)"
+                : "0 2px 12px rgba(0,0,0,0.06)",
           }}
         >
           {/* Logo */}
@@ -73,7 +80,7 @@ export default function Navbar() {
             >
               <Layers size={16} className="text-white" />
             </span>
-            <span className="text-base font-bold tracking-tight text-white font-sora">
+            <span className="text-base font-bold tracking-tight font-sora" style={{ color: 'var(--color-navbar-text)' }}>
               Innovate
               <span
                 style={{
@@ -98,15 +105,15 @@ export default function Navbar() {
                     to={link.href}
                     className="relative px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-200 font-inter"
                     style={{
-                      color: active ? "#fff" : "rgba(255,255,255,0.6)",
+                      color: active ? 'var(--color-navbar-text)' : 'var(--color-navbar-text-muted)',
                     }}
                     onMouseEnter={(e) =>
-                      ((e.currentTarget as HTMLElement).style.color = "#fff")
+                      ((e.currentTarget as HTMLElement).style.color = 'var(--color-navbar-text)')
                     }
                     onMouseLeave={(e) =>
                       ((e.currentTarget as HTMLElement).style.color = active
-                        ? "#fff"
-                        : "rgba(255,255,255,0.6)")
+                        ? 'var(--color-navbar-text)'
+                        : 'var(--color-navbar-text-muted)')
                     }
                   >
                     {link.label}
@@ -127,34 +134,64 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* CTA button — Evolvion white pill */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Theme toggle + CTA */}
+          <div className="hidden md:flex items-center gap-2">
+            {/* Theme toggle */}
             <button
-              onClick={() => navigate("/custom-project")}
-              className="text-sm font-semibold px-5 py-2 rounded-xl text-slate-900 transition-all duration-200 shrink-0"
+              onClick={toggleTheme}
+              className="flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-200"
               style={{
-                background: "#ffffff",
-                boxShadow: "inset 0 -4px 8px rgba(0,0,0,0.20)",
+                background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.08)'}`,
+                color: isDark ? '#fbbf24' : '#6366f1',
               }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLElement).style.background = "#e8e8f0")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLElement).style.background = "#ffffff")
-              }
+              aria-label="Toggle theme"
             >
-              Get a quote
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+
+            {/* Sell Project CTA */}
+            <button
+              onClick={() => navigate("/upload")}
+              className="text-sm font-semibold px-5 py-2 rounded-xl transition-all duration-200 shrink-0"
+              style={{
+                background: isDark ? '#ffffff' : 'linear-gradient(135deg,#7214ff,#a365ff)',
+                color: isDark ? '#0a0d1a' : '#ffffff',
+                boxShadow: isDark
+                  ? 'inset 0 -4px 8px rgba(0,0,0,0.20)'
+                  : '0 4px 14px rgba(114,20,255,0.25)',
+              }}
+            >
+              Sell Project
             </button>
           </div>
 
           {/* Mobile hamburger */}
-          <button
-            className="md:hidden flex items-center justify-center w-9 h-9 rounded-xl border border-white/10 text-slate-300 hover:text-white transition-colors"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-200"
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.08)'}`,
+                color: isDark ? '#fbbf24' : '#6366f1',
+              }}
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+            <button
+              className="flex items-center justify-center w-9 h-9 rounded-xl transition-colors"
+              style={{
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.08)'}`,
+                color: 'var(--color-navbar-text-muted)',
+              }}
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 
@@ -167,8 +204,13 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22 }}
-            className="absolute top-full left-0 right-0 mx-4 mt-2 rounded-2xl border border-white/8 overflow-hidden z-40"
-            style={{ background: "rgba(10,13,26,0.97)", backdropFilter: "blur(24px)" }}
+            className="absolute top-full left-0 right-0 mx-4 mt-2 rounded-2xl overflow-hidden z-40"
+            style={{
+              background: isDark ? 'rgba(10,13,26,0.97)' : 'rgba(255,255,255,0.97)',
+              backdropFilter: 'blur(24px)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+              boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.5)' : '0 8px 32px rgba(0,0,0,0.08)',
+            }}
           >
             <div className="flex flex-col gap-1 p-3">
               {navLinks.map((link) => (
@@ -176,18 +218,21 @@ export default function Navbar() {
                   key={link.label}
                   to={link.href}
                   onClick={close}
-                  className="flex items-center px-4 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all"
+                  className="flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all"
+                  style={{
+                    color: 'var(--color-muted)',
+                  }}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-2 mt-1 border-t border-white/5">
+              <div className="pt-2 mt-1" style={{ borderTop: `1px solid var(--color-border)` }}>
                 <button
-                  onClick={() => { close(); navigate("/custom-project"); }}
-                  className="w-full flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-slate-900"
-                  style={{ background: "#ffffff" }}
+                  onClick={() => { close(); navigate("/upload"); }}
+                  className="w-full flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-white"
+                  style={{ background: 'linear-gradient(135deg,#7214ff,#a365ff)' }}
                 >
-                  Get a quote
+                  Sell Project
                 </button>
               </div>
             </div>

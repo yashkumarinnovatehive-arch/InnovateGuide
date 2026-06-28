@@ -45,12 +45,12 @@ function uid(): string { return 'cat-' + Math.random().toString(36).slice(2, 9) 
 
 interface SectionProps { icon: React.ReactNode; iconBg: string; title: string; subtitle?: string; children: React.ReactNode }
 const Section: React.FC<SectionProps> = ({ icon, iconBg, title, subtitle, children }) => (
-  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-    <div className="flex items-center gap-3 px-6 py-4 border-b border-slate-100 bg-slate-50/70">
+  <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+    <div className="flex items-center gap-3 px-6 py-4 border-b border-slate-100 bg-[var(--color-bg1)]/70">
       <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center shrink-0', iconBg)}>{icon}</div>
       <div>
-        <h2 className="font-sora font-semibold text-slate-900 text-sm">{title}</h2>
-        {subtitle && <p className="text-xs text-slate-500 mt-0.5">{subtitle}</p>}
+        <h2 className="font-sora font-semibold text-heading text-sm">{title}</h2>
+        {subtitle && <p className="text-xs text-muted mt-0.5">{subtitle}</p>}
       </div>
     </div>
     <div className="p-6">{children}</div>
@@ -63,10 +63,10 @@ const PasswordInput = React.forwardRef<HTMLInputElement, React.InputHTMLAttribut
     const inputId = label.toLowerCase().replace(/\s+/g, '-')
     return (
       <div className="flex flex-col gap-1.5 w-full">
-        <label htmlFor={inputId} className="text-sm font-medium text-slate-700">{label}</label>
+        <label htmlFor={inputId} className="text-sm font-medium text-heading">{label}</label>
         <div className="relative">
-          <input ref={ref} id={inputId} type={show ? 'text' : 'password'} className={cn('w-full h-12 rounded-xl border bg-white px-4 pr-11 text-sm text-slate-900 placeholder:text-slate-400 transition-all duration-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-50', error ? 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : 'border-slate-200')} {...props} />
-          <button type="button" onClick={() => setShow((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors" tabIndex={-1}>
+          <input ref={ref} id={inputId} type={show ? 'text' : 'password'} className={cn('w-full h-12 rounded-xl border bg-card px-4 pr-11 text-sm text-heading placeholder:text-subtle transition-all duration-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-50', error ? 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : 'border-border')} {...props} />
+          <button type="button" onClick={() => setShow((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-subtle hover:text-muted transition-colors" tabIndex={-1}>
             {show ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
@@ -89,14 +89,14 @@ const CategoryRow: React.FC<CategoryRowProps> = ({ category, onEdit, onDelete })
   }
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') commit(); if (e.key === 'Escape') { setValue(category.name); setEditing(false) } }
   return (
-    <div className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 group">
+    <div className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-[var(--color-bg1)] border border-border group">
       {editing ? (
-        <input autoFocus value={value} onChange={(e) => setValue(e.target.value)} onBlur={commit} onKeyDown={handleKey} className="flex-1 min-w-0 text-sm bg-white border border-blue-400 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
+        <input autoFocus value={value} onChange={(e) => setValue(e.target.value)} onBlur={commit} onKeyDown={handleKey} className="flex-1 min-w-0 text-sm bg-card border border-blue-400 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
       ) : (
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <Tag size={13} className="text-slate-400 shrink-0" />
-          <span className="text-sm font-medium text-slate-800 truncate">{category.name}</span>
-          <span className="text-xs text-slate-400 font-mono truncate hidden sm:block">/{category.slug}</span>
+          <Tag size={13} className="text-subtle shrink-0" />
+          <span className="text-sm font-medium text-heading truncate">{category.name}</span>
+          <span className="text-xs text-subtle font-mono truncate hidden sm:block">/{category.slug}</span>
         </div>
       )}
       <div className="flex items-center gap-1 shrink-0">
@@ -173,9 +173,9 @@ const AdminSettingsPage: React.FC = () => {
           <form onSubmit={handlePlatform(onSavePlatform)} className="space-y-5" noValidate>
             <Input label="Site Name" {...regPlatform('siteName')} placeholder="e.g. InnovateGuide" error={platformErrors.siteName?.message} />
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5"><MessageCircle size={13} className="inline mr-1.5 text-green-600" />WhatsApp Number</label>
+              <label className="block text-sm font-medium text-heading mb-1.5"><MessageCircle size={13} className="inline mr-1.5 text-green-600" />WhatsApp Number</label>
               <Input {...regPlatform('whatsappNumber')} placeholder="919876543210 (country code + number, no spaces or +)" error={platformErrors.whatsappNumber?.message} />
-              <p className="text-xs text-slate-400 mt-1.5">Used for the "Buy on WhatsApp" CTA on project detail pages. Example: <code className="bg-slate-100 px-1 rounded">919876543210</code> for +91 98765 43210.</p>
+              <p className="text-xs text-subtle mt-1.5">Used for the "Buy on WhatsApp" CTA on project detail pages. Example: <code className="bg-[var(--color-bg2)] px-1 rounded">919876543210</code> for +91 98765 43210.</p>
             </div>
             <div className="pt-1"><Button type="submit" variant="primary" size="sm" loading={platformSaving} className="gap-2"><Save size={14} />Save Platform Settings</Button></div>
           </form>
@@ -193,17 +193,17 @@ const AdminSettingsPage: React.FC = () => {
 
         <Section icon={<Tag size={16} className="text-emerald-600" />} iconBg="bg-emerald-100" title="Project Categories" subtitle="Manage the domain categories shown in browse and filter panels">
           <div className="flex gap-2 mb-4">
-            <input value={newCatName} onChange={(e) => setNewCatName(e.target.value)} onKeyDown={handleNewCatKey} placeholder="New category name, press Enter to add" className="flex-1 h-10 rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all" />
+            <input value={newCatName} onChange={(e) => setNewCatName(e.target.value)} onKeyDown={handleNewCatKey} placeholder="New category name, press Enter to add" className="flex-1 h-10 rounded-xl border border-border bg-card px-4 text-sm text-heading placeholder:text-subtle focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all" />
             <button type="button" onClick={addCategory} className="h-10 px-3.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 transition-colors border border-emerald-200 shrink-0"><Plus size={16} /></button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5">
             {categories.map((cat) => <CategoryRow key={cat.id} category={cat} onEdit={editCategory} onDelete={deleteCategory} />)}
-            {categories.length === 0 && <p className="col-span-2 text-center text-sm text-slate-400 py-8">No categories yet. Add one above.</p>}
+            {categories.length === 0 && <p className="col-span-2 text-center text-sm text-subtle py-8">No categories yet. Add one above.</p>}
           </div>
-          <p className="text-xs text-slate-400 mb-4">{categories.length} categor{categories.length !== 1 ? 'ies' : 'y'} &mdash; hover a row to reveal edit / delete actions.</p>
+          <p className="text-xs text-subtle mb-4">{categories.length} categor{categories.length !== 1 ? 'ies' : 'y'} &mdash; hover a row to reveal edit / delete actions.</p>
           <div className="flex items-center gap-3 pt-1">
             <Button type="button" variant="primary" size="sm" loading={catSaving} onClick={saveCategories} className="gap-2"><Save size={14} />Save Categories</Button>
-            <button type="button" onClick={resetCategories} className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 transition-colors px-3 h-8 rounded-lg hover:bg-slate-100"><RefreshCw size={13} />Reset to defaults</button>
+            <button type="button" onClick={resetCategories} className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-heading transition-colors px-3 h-8 rounded-lg hover:bg-[var(--color-bg2)]"><RefreshCw size={13} />Reset to defaults</button>
           </div>
         </Section>
       </div>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, X } from 'lucide-react'
 import { cn } from '@utils/index'
+import { useTheme } from '@shared/contexts/ThemeContext'
 
 const PLACEHOLDER_CYCLE = [
   'Search AI projects...',
@@ -20,6 +21,7 @@ export interface SearchBarProps {
 
 export function SearchBar({ onSearch, placeholder, className, autoFocus = false }: SearchBarProps) {
   const navigate = useNavigate()
+  const { isDark } = useTheme()
   const inputRef = React.useRef<HTMLInputElement>(null)
   const [value, setValue] = React.useState('')
   const [pIdx, setPIdx] = React.useState(0)
@@ -54,19 +56,19 @@ export function SearchBar({ onSearch, placeholder, className, autoFocus = false 
       <div
         className="relative flex items-center flex-1 rounded-2xl transition-all duration-300"
         style={{
-          background: 'rgba(14,19,48,0.70)',
-          border: `1px solid ${focused ? 'rgba(114,20,255,0.50)' : 'rgba(255,255,255,0.08)'}`,
-          boxShadow: focused ? '0 0 24px rgba(114,20,255,0.18)' : '0 2px 12px rgba(0,0,0,0.20)',
+          background: 'var(--color-input-bg)',
+          border: `1px solid ${focused ? 'rgba(114,20,255,0.50)' : 'var(--color-input-border)'}`,
+          boxShadow: focused ? '0 0 24px rgba(114,20,255,0.18)' : 'var(--color-card-shadow)',
           backdropFilter: 'blur(12px)',
         }}
       >
-        <Search size={18} className="absolute left-4 pointer-events-none shrink-0" style={{ color: focused ? '#a365ff' : 'rgba(255,255,255,0.30)' }} aria-hidden />
+        <Search size={18} className="absolute left-4 pointer-events-none shrink-0" style={{ color: focused ? '#a365ff' : 'var(--color-subtle)' }} aria-hidden />
 
         {value === '' && (
           <span
             aria-hidden
             className="absolute left-11 right-14 top-1/2 -translate-y-1/2 text-sm pointer-events-none truncate transition-opacity duration-300 font-inter"
-            style={{ color: 'rgba(255,255,255,0.30)', opacity: pVisible ? 1 : 0 }}
+            style={{ color: 'var(--color-subtle)', opacity: pVisible ? 1 : 0 }}
           >
             {activePlaceholder}
           </span>
@@ -85,7 +87,8 @@ export function SearchBar({ onSearch, placeholder, className, autoFocus = false 
           autoComplete="off"
           spellCheck={false}
           aria-label="Search projects"
-          className="w-full h-14 pl-11 pr-10 bg-transparent rounded-2xl text-sm text-white font-inter focus:outline-none"
+          className="w-full h-14 pl-11 pr-10 bg-transparent rounded-2xl text-sm font-inter focus:outline-none"
+          style={{ color: 'var(--color-text)' }}
         />
 
         <AnimatePresence>
@@ -100,9 +103,9 @@ export function SearchBar({ onSearch, placeholder, className, autoFocus = false 
               onClick={handleClear}
               aria-label="Clear search"
               className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full transition-colors duration-150"
-              style={{ color: 'rgba(255,255,255,0.40)' }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#fff')}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.40)')}
+              style={{ color: 'var(--color-subtle)' }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--color-text)')}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--color-subtle)')}
             >
               <X size={14} />
             </motion.button>

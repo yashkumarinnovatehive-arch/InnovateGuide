@@ -42,7 +42,7 @@ export default function LoginPage() {
       : null)
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0B0F19] text-slate-100 relative overflow-hidden font-inter px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg0)] text-[var(--color-text-heading)] relative overflow-hidden font-inter px-4">
       {/* Background glow blobs */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
@@ -54,7 +54,7 @@ export default function LoginPage() {
         className="w-full max-w-md relative z-10"
       >
         {/* ── Card ── */}
-        <div className="bg-slate-900/40 border border-white/10 rounded-3xl p-8 backdrop-blur-md shadow-2xl relative overflow-hidden">
+        <div className="bg-[var(--color-bg1)]/40 border border-[var(--color-border)] rounded-3xl p-8 backdrop-blur-md shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-[80px] pointer-events-none" />
 
           {/* Logo + Title */}
@@ -62,13 +62,13 @@ export default function LoginPage() {
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-rose-500 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.3)] mb-4">
               <Zap size={28} className="text-white fill-white" />
             </div>
-            <h1 className="font-sora font-bold text-2xl text-slate-100 tracking-tight">
+            <h1 className="font-sora font-bold text-2xl text-[var(--color-text-heading)] tracking-tight">
               InnovateGuide
             </h1>
-            <h2 className="font-sora font-semibold text-lg text-slate-200 mt-1">
+            <h2 className="font-sora font-semibold text-lg text-[var(--color-text-heading)] mt-1">
               Admin Login
             </h2>
-            <p className="text-sm text-slate-400 mt-1 text-center">
+            <p className="text-sm text-[var(--color-subtle)] mt-1 text-center">
               Sign in to manage projects and review submissions
             </p>
           </div>
@@ -110,7 +110,7 @@ export default function LoginPage() {
                     setLocalError(null)
                   }}
                   placeholder="admin@innovateguide.in"
-                  className="w-full pl-9 pr-4 h-11 rounded-xl border border-white/10 bg-slate-950/60 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-200"
+                  className="w-full pl-9 pr-4 h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-input-bg)] text-sm text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-200"
                   disabled={isLoggingIn}
                 />
               </div>
@@ -138,13 +138,13 @@ export default function LoginPage() {
                     setLocalError(null)
                   }}
                   placeholder="Enter your password"
-                  className="w-full pl-9 pr-11 h-11 rounded-xl border border-white/10 bg-slate-950/60 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-200"
+                  className="w-full pl-9 pr-11 h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-input-bg)] text-sm text-[var(--color-text-heading)] placeholder:text-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-200"
                   disabled={isLoggingIn}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute inset-y-0 right-3 flex items-center text-slate-500 hover:text-slate-300 transition-colors"
+                  className="absolute inset-y-0 right-3 flex items-center text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"
                   tabIndex={-1}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
@@ -171,7 +171,7 @@ export default function LoginPage() {
         <div className="mt-5 text-center relative z-10">
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-orange-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-[var(--color-subtle)] hover:text-orange-400 transition-colors"
           >
             <ChevronLeft size={14} />
             Back to Home

@@ -100,7 +100,7 @@ const DetailRow: React.FC<{ label: string; value: string }> = ({ label, value })
   <div className="flex items-start gap-2 text-sm font-inter">
     <span className="w-24 shrink-0 text-muted font-medium">{label}</span>
     <span>:</span>
-    <span className="text-primary-900 break-words">{value}</span>
+    <span className="text-heading break-words">{value}</span>
   </div>
 )
 
@@ -136,7 +136,7 @@ const ProjectRequestsPage: React.FC = () => {
     <div className="flex flex-col gap-6">
       <AdminHeader title="Project Requests" subtitle={`${requests.length} request${requests.length !== 1 ? 's' : ''} received`} />
 
-      <div className="rounded-xl border border-border shadow-card overflow-hidden bg-white">
+      <div className="rounded-xl border border-border shadow-card overflow-hidden bg-card">
         <div className="overflow-x-auto">
           <table className="w-full text-sm font-inter">
             <thead>
@@ -151,9 +151,9 @@ const ProjectRequestsPage: React.FC = () => {
                 <tr><td colSpan={7} className="text-center py-16 text-muted font-inter text-sm">No requests found.</td></tr>
               ) : (
                 paginated.map((req) => (
-                  <tr key={req.id} className="bg-white hover:bg-slate-50 transition-colors duration-100">
+                  <tr key={req.id} className="bg-card hover:bg-[var(--color-bg1)] transition-colors duration-100">
                     <td className="px-5 py-3.5 text-muted whitespace-nowrap">{formatDate(req.createdAt)}</td>
-                    <td className="px-5 py-3.5 font-medium text-primary-900 whitespace-nowrap">{req.name}</td>
+                    <td className="px-5 py-3.5 font-medium text-heading whitespace-nowrap">{req.name}</td>
                     <td className="px-5 py-3.5 text-muted whitespace-nowrap">{req.email}</td>
                     <td className="px-5 py-3.5 whitespace-nowrap"><Badge variant="blue">{req.budget}</Badge></td>
                     <td className="px-5 py-3.5 whitespace-nowrap"><Badge variant="default">{req.projectType}</Badge></td>
@@ -172,14 +172,14 @@ const ProjectRequestsPage: React.FC = () => {
           </table>
         </div>
         {totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-border px-5 py-3 bg-white">
+          <div className="flex items-center justify-between border-t border-border px-5 py-3 bg-card">
             <p className="text-xs font-inter text-muted">Page {currentPage} of {totalPages} &mdash; {requests.length} total</p>
             <div className="flex items-center gap-1">
-              <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1} className="p-1.5 rounded-lg text-primary-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors"><ChevronLeft size={16} /></button>
+              <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1} className="p-1.5 rounded-lg text-heading hover:bg-[var(--color-bg2)] disabled:opacity-40 disabled:pointer-events-none transition-colors"><ChevronLeft size={16} /></button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button key={page} onClick={() => goToPage(page)} className={`h-7 w-7 rounded-lg text-xs font-inter font-medium transition-colors duration-150 ${page === currentPage ? 'bg-[#1E3A5F] text-white' : 'text-primary-600 hover:bg-slate-100'}`}>{page}</button>
+                <button key={page} onClick={() => goToPage(page)} className={`h-7 w-7 rounded-lg text-xs font-inter font-medium transition-colors duration-150 ${page === currentPage ? 'bg-[#1E3A5F] text-white' : 'text-heading hover:bg-[var(--color-bg2)]'}`}>{page}</button>
               ))}
-              <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages} className="p-1.5 rounded-lg text-primary-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors"><ChevronRight size={16} /></button>
+              <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages} className="p-1.5 rounded-lg text-heading hover:bg-[var(--color-bg2)] disabled:opacity-40 disabled:pointer-events-none transition-colors"><ChevronRight size={16} /></button>
             </div>
           </div>
         )}
@@ -210,16 +210,16 @@ const ProjectRequestsPage: React.FC = () => {
                 </div>
               </Section>
               <Section title="Project Description">
-                <p className="text-primary-700 leading-relaxed whitespace-pre-wrap">{viewTarget.description}</p>
+                <p className="text-heading leading-relaxed whitespace-pre-wrap">{viewTarget.description}</p>
               </Section>
               {viewTarget.additionalInfo && (
                 <Section title="Additional Information">
-                  <p className="text-primary-700 leading-relaxed whitespace-pre-wrap">{viewTarget.additionalInfo}</p>
+                  <p className="text-heading leading-relaxed whitespace-pre-wrap">{viewTarget.additionalInfo}</p>
                 </Section>
               )}
               <Section title="Update Status">
                 <div className="flex items-center gap-3 mt-1">
-                  <select value={statusUpdate} onChange={(e) => setStatusUpdate(e.target.value as RequestStatus)} className="flex-1 px-3 py-2 text-sm font-inter bg-white border border-border rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-150">
+                  <select value={statusUpdate} onChange={(e) => setStatusUpdate(e.target.value as RequestStatus)} className="flex-1 px-3 py-2 text-sm font-inter bg-card border border-border rounded-lg text-heading focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-150">
                     {STATUS_OPTIONS.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
                   </select>
                   <Button variant="primary" size="sm" loading={statusSaving} onClick={saveStatusChange} disabled={statusUpdate === viewTarget.status || statusSaving}>Save</Button>

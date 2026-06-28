@@ -1,30 +1,25 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Eye, Download, MessageCircle, ArrowUpRight } from 'lucide-react'
+import { Eye, Download, ArrowUpRight, Star, ShoppingBag } from 'lucide-react'
 import { cn } from '@utils/index'
-import { formatPrice, getWhatsAppLink, generateCreatorId } from '@utils/index'
 import type { Project } from '@ig-types/index'
+import { useTheme } from '@shared/contexts/ThemeContext'
 
-// WhatsApp green — used everywhere
-const WA_GREEN = '#25D366'
-const WA_GREEN_HOVER = '#1ebe57'
-const WA_SHADOW = '0 4px 14px rgba(37,211,102,0.28)'
+// Google Form URL for buying
+const GOOGLE_FORM_URL = 'https://forms.google.com/your-form-id'
 
-// ── Evolvion palette ────────────────────────────────────────────────────────
-const PURPLE_BTN = 'linear-gradient(135deg,#7214ff 0%,#a365ff 100%)'
-const CARD_BG = '#0E1330'
-const CARD_BORDER = 'rgba(255,255,255,0.06)'
-const CARD_BORDER_HOVER = 'rgba(114,20,255,0.38)'
-const CARD_GLOW = '0 0 0 1px rgba(114,20,255,0.30), 0 8px 32px rgba(114,20,255,0.18)'
+// ── Buy button palette ──────────────────────────────────────────────────────
+const BUY_BTN = 'linear-gradient(135deg,#7214ff 0%,#a365ff 100%)'
+const BUY_SHADOW = '0 4px 14px rgba(114,20,255,0.28)'
 
-const DIFFICULTY_PILL: Record<string, { label: string; bg: string; color: string }> = {
-  beginner:     { label: 'Beginner',     bg: 'rgba(16,185,129,0.12)',  color: '#34d399' },
-  intermediate: { label: 'Intermediate', bg: 'rgba(245,158,11,0.12)',  color: '#fbbf24' },
-  advanced:     { label: 'Advanced',     bg: 'rgba(239,68,68,0.12)',   color: '#f87171' },
+const DIFFICULTY_PILL: Record<string, { label: string; bg: string; bgLight: string; color: string; colorLight: string }> = {
+  beginner:     { label: 'Beginner',     bg: 'rgba(16,185,129,0.12)',  bgLight: 'rgba(16,185,129,0.10)',  color: '#34d399', colorLight: '#059669' },
+  intermediate: { label: 'Intermediate', bg: 'rgba(245,158,11,0.12)',  bgLight: 'rgba(245,158,11,0.10)',  color: '#fbbf24', colorLight: '#d97706' },
+  advanced:     { label: 'Advanced',     bg: 'rgba(239,68,68,0.12)',   bgLight: 'rgba(239,68,68,0.10)',   color: '#f87171', colorLight: '#dc2626' },
 }
 
-// ── Domain-based crystallic card accent colour ───────────────────────────────
+// ── Domain-based accent colour ───────────────────────────────────────────────
 function getDomainAccent(domain?: string) {
   const map: Record<string, { from: string; to: string; glow: string }> = {
     'AI & ML':         { from: '#6366f1', to: '#8b5cf6', glow: 'rgba(99,102,241,0.20)' },
@@ -54,7 +49,7 @@ const CompactProjectCard = React.memo(function CompactProjectCard({
   index = 0,
   className,
 }: Omit<ProjectCardProps, 'variant'>) {
-  const whatsAppLink = getWhatsAppLink(project.title, project.price)
+  const { isDark } = useTheme()
   const accent = getDomainAccent(project.domain)
   const [hov, setHov] = React.useState(false)
 
@@ -65,9 +60,9 @@ const CompactProjectCard = React.memo(function CompactProjectCard({
       transition={{ duration: 0.35, delay: index * 0.05, ease: 'easeOut' }}
       className={cn('group flex items-center gap-3 rounded-2xl p-3 transition-all duration-300', className)}
       style={{
-        background: CARD_BG,
-        border: `1px solid ${hov ? CARD_BORDER_HOVER : CARD_BORDER}`,
-        boxShadow: hov ? CARD_GLOW : 'none',
+        background: 'var(--color-card)',
+        border: `1px solid ${hov ? 'var(--color-border-hover)' : 'var(--color-border)'}`,
+        boxShadow: hov ? 'var(--color-card-shadow-hover)' : 'var(--color-card-shadow)',
         transform: hov ? 'translateY(-2px)' : 'none',
       }}
       onMouseEnter={() => setHov(true)}
@@ -88,18 +83,16 @@ const CompactProjectCard = React.memo(function CompactProjectCard({
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="font-sora font-semibold text-sm text-white line-clamp-1 leading-snug">{project.title}</p>
-        <p className="text-xs font-inter mt-0.5 font-bold" style={{ color: '#a365ff' }}>{formatPrice(project.price)}</p>
+        <p className="font-sora font-semibold text-sm line-clamp-1 leading-snug" style={{ color: 'var(--color-text-heading)' }}>{project.title}</p>
+        <p className="text-xs font-inter mt-0.5" style={{ color: 'var(--color-muted)' }}>{project.domain}</p>
       </div>
 
       <button
         className="flex-shrink-0 text-xs px-3 py-1.5 rounded-lg font-semibold text-white flex items-center gap-1.5 transition-all duration-200"
-        style={{ background: WA_GREEN, boxShadow: WA_SHADOW }}
-        onClick={(e) => { e.preventDefault(); window.open(whatsAppLink, '_blank', 'noopener,noreferrer') }}
-        onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = WA_GREEN_HOVER)}
-        onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = WA_GREEN)}
+        style={{ background: BUY_BTN, boxShadow: BUY_SHADOW }}
+        onClick={(e) => { e.preventDefault(); window.open(GOOGLE_FORM_URL, '_blank', 'noopener,noreferrer') }}
       >
-        <MessageCircle size={12} /> Buy
+        <ShoppingBag size={12} /> Buy
       </button>
     </motion.div>
   )
@@ -111,7 +104,7 @@ const DefaultProjectCard = React.memo(function DefaultProjectCard({
   index = 0,
   className,
 }: Omit<ProjectCardProps, 'variant'>) {
-  const whatsAppLink = getWhatsAppLink(project.title, project.price)
+  const { isDark } = useTheme()
   const accent = getDomainAccent(project.domain)
   const diffConf = DIFFICULTY_PILL[project.difficulty?.toLowerCase() ?? ''] ?? DIFFICULTY_PILL['beginner']
   const techs: string[] = project.technologies ?? []
@@ -124,17 +117,17 @@ const DefaultProjectCard = React.memo(function DefaultProjectCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.07, ease: 'easeOut' }}
-      className={cn('group relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300', className)}
+      className={cn('group relative flex flex-col h-full rounded-2xl overflow-hidden transition-all duration-300', className)}
       style={{
-        background: CARD_BG,
-        border: `1px solid ${hov ? CARD_BORDER_HOVER : CARD_BORDER}`,
-        boxShadow: hov ? CARD_GLOW : '0 2px 8px rgba(0,0,0,0.24)',
+        background: 'var(--color-card)',
+        border: `1px solid ${hov ? 'var(--color-border-hover)' : 'var(--color-border)'}`,
+        boxShadow: hov ? 'var(--color-card-shadow-hover)' : 'var(--color-card-shadow)',
         transform: hov ? 'translateY(-6px)' : 'none',
       }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
-      {/* Crystallic top shimmer bar */}
+      {/* Top shimmer bar */}
       <div
         className="absolute top-0 left-0 right-0 h-px z-10"
         style={{
@@ -158,9 +151,7 @@ const DefaultProjectCard = React.memo(function DefaultProjectCard({
             style={{ transform: hov ? 'scale(1.05)' : 'scale(1)' }}
           />
         ) : (
-          /* Crystallic placeholder */
           <div className="w-full h-full flex items-center justify-center relative overflow-hidden">
-            {/* Refraction blobs */}
             <div className="absolute w-32 h-32 rounded-full blur-2xl opacity-40" style={{ background: `radial-gradient(circle,${accent.from},transparent)`, top: '-10%', left: '10%' }} />
             <div className="absolute w-24 h-24 rounded-full blur-xl opacity-30" style={{ background: `radial-gradient(circle,${accent.to},transparent)`, bottom: '0%', right: '15%' }} />
             <div
@@ -173,7 +164,14 @@ const DefaultProjectCard = React.memo(function DefaultProjectCard({
         )}
 
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0E1330]/80 via-transparent to-transparent pointer-events-none" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: isDark
+              ? 'linear-gradient(to top, rgba(14,19,48,0.80), transparent, transparent)'
+              : 'linear-gradient(to top, rgba(255,255,255,0.60), transparent, transparent)',
+          }}
+        />
 
         {/* Status badges */}
         <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5 pointer-events-none z-10">
@@ -188,10 +186,18 @@ const DefaultProjectCard = React.memo(function DefaultProjectCard({
           )}
         </div>
 
-        {/* Price overlay bottom-left */}
+        {/* Domain badge bottom-left */}
         <div className="absolute bottom-3 left-3 z-10">
-          <span className="text-sm font-extrabold font-sora text-white px-2.5 py-1 rounded-lg" style={{ background: 'rgba(14,19,48,0.85)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.08)' }}>
-            {formatPrice(project.price)}
+          <span
+            className="text-[11px] font-semibold font-inter px-2.5 py-1 rounded-lg"
+            style={{
+              background: isDark ? 'rgba(14,19,48,0.85)' : 'rgba(255,255,255,0.90)',
+              backdropFilter: 'blur(6px)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+              color: accent.from,
+            }}
+          >
+            {project.domain}
           </span>
         </div>
       </div>
@@ -199,7 +205,7 @@ const DefaultProjectCard = React.memo(function DefaultProjectCard({
       {/* Card body */}
       <div className="flex flex-col flex-1 gap-3 p-5">
         {/* Title */}
-        <h3 className="font-sora font-semibold text-sm leading-snug text-slate-100 group-hover:text-white transition-colors line-clamp-2">
+        <h3 className="font-sora font-semibold text-sm leading-snug transition-colors line-clamp-2" style={{ color: 'var(--color-text-heading)' }}>
           {project.title}
         </h3>
 
@@ -210,25 +216,44 @@ const DefaultProjectCard = React.memo(function DefaultProjectCard({
               <span
                 key={tech}
                 className="inline-flex items-center rounded-lg px-2 py-0.5 text-[11px] font-medium font-inter"
-                style={{ background: 'rgba(114,20,255,0.12)', color: '#c4b5fd', border: '1px solid rgba(114,20,255,0.20)' }}
+                style={{
+                  background: 'var(--color-pill-bg)',
+                  color: 'var(--color-pill-text)',
+                  border: `1px solid var(--color-pill-border)`,
+                }}
               >
                 {tech}
               </span>
             ))}
             {extraCount > 0 && (
-              <span className="inline-flex items-center rounded-lg px-2 py-0.5 text-[11px] font-medium font-inter" style={{ background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <span
+                className="inline-flex items-center rounded-lg px-2 py-0.5 text-[11px] font-medium font-inter"
+                style={{ background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', color: 'var(--color-subtle)', border: `1px solid var(--color-border)` }}
+              >
                 +{extraCount} more
               </span>
             )}
           </div>
         )}
 
-        {/* Difficulty + views row */}
+        {/* Difficulty + rating + views row */}
         <div className="flex items-center justify-between mt-auto">
-          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[11px] font-semibold font-inter" style={{ background: diffConf.bg, color: diffConf.color }}>
+          <span
+            className="inline-flex items-center rounded-lg px-2.5 py-1 text-[11px] font-semibold font-inter"
+            style={{
+              background: isDark ? diffConf.bg : diffConf.bgLight,
+              color: isDark ? diffConf.color : diffConf.colorLight,
+            }}
+          >
             {diffConf.label}
           </span>
-          <div className="flex items-center gap-3 text-xs font-inter" style={{ color: 'rgba(255,255,255,0.35)' }}>
+          <div className="flex items-center gap-3 text-xs font-inter" style={{ color: 'var(--color-subtle)' }}>
+            {typeof project.rating === 'number' && (
+              <span className="flex items-center gap-1">
+                <Star size={12} className="fill-amber-400 text-amber-400" />
+                {project.rating}
+              </span>
+            )}
             {typeof project.views === 'number' && (
               <span className="flex items-center gap-1"><Eye size={12} />{project.views.toLocaleString()}</span>
             )}
@@ -239,28 +264,30 @@ const DefaultProjectCard = React.memo(function DefaultProjectCard({
         </div>
 
         {/* Divider */}
-        <div className="h-px w-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
+        <div className="h-px w-full" style={{ background: 'var(--color-border)' }} />
 
         {/* Action buttons */}
         <div className="flex flex-col gap-2">
           <Link
             to={`/projects/${project.id}`}
-            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold font-inter text-slate-300 transition-all duration-200 hover:text-white"
-            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)' }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)' }}
+            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold font-inter transition-all duration-200"
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+              border: `1px solid var(--color-border)`,
+              color: 'var(--color-muted)',
+            }}
           >
             <ArrowUpRight size={13} /> View Details
           </Link>
-          <button
+          <Link
+            to={`/buy/${project.id}`}
             className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-bold font-inter text-white transition-all duration-200"
-            style={{ background: WA_GREEN, boxShadow: WA_SHADOW }}
-            onClick={() => window.open(whatsAppLink, '_blank', 'noopener,noreferrer')}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = WA_GREEN_HOVER; (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(37,211,102,0.40)' }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = WA_GREEN; (e.currentTarget as HTMLElement).style.boxShadow = WA_SHADOW }}
+            style={{ background: BUY_BTN, boxShadow: BUY_SHADOW }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(114,20,255,0.40)' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = BUY_SHADOW }}
           >
-            <MessageCircle size={13} /> Buy via WhatsApp
-          </button>
+            <ShoppingBag size={13} /> Buy
+          </Link>
         </div>
       </div>
     </motion.div>

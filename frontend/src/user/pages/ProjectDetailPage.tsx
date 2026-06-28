@@ -8,6 +8,7 @@ import {
   MessageCircle,
   Share2,
   ChevronLeft,
+  ShoppingBag,
   Play,
   ExternalLink,
   Check,
@@ -46,7 +47,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
           className={
             i <= Math.round(rating)
               ? 'fill-amber-400 text-amber-400'
-              : 'fill-slate-200 text-slate-200'
+              : 'fill-slate-200 text-[var(--color-text-heading)]'
           }
         />
       ))}
@@ -86,7 +87,7 @@ export default function ProjectDetailPage() {
   if (isError && !proj) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <p className="text-lg text-slate-500">Project not found.</p>
+        <p className="text-lg text-[var(--color-muted)]">Project not found.</p>
         <Button asChild variant="outline">
           <Link to="/browse">Back to Browse</Link>
         </Button>
@@ -132,7 +133,7 @@ export default function ProjectDetailPage() {
   const related = MOCK_PROJECTS.filter((p) => p.id !== proj.id).slice(0, 5)
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-slate-100 relative overflow-hidden font-inter pt-24">
+    <div className="min-h-screen bg-[var(--color-bg0)] text-[var(--color-text-heading)] relative overflow-hidden font-inter pt-24">
       {/* Background glow blobs */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[140px] pointer-events-none" />
@@ -142,12 +143,12 @@ export default function ProjectDetailPage() {
 
       {/* ── Breadcrumb ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 relative z-10">
-        <nav className="flex items-center gap-2 text-sm text-slate-400">
+        <nav className="flex items-center gap-2 text-sm text-[var(--color-subtle)]">
           <Link to="/" className="hover:text-orange-400 transition-colors">Home</Link>
           <span className="text-slate-600">/</span>
           <Link to="/browse" className="hover:text-orange-400 transition-colors">Browse</Link>
           <span className="text-slate-600">/</span>
-          <span className="text-slate-200 font-medium truncate max-w-xs">{proj.title}</span>
+          <span className="text-[var(--color-text-heading)] font-medium truncate max-w-xs">{proj.title}</span>
         </nav>
       </div>
 
@@ -155,7 +156,7 @@ export default function ProjectDetailPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4 relative z-10">
         <Link
           to="/browse"
-          className="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-orange-400 transition-colors"
+          className="inline-flex items-center gap-1 text-sm text-[var(--color-subtle)] hover:text-orange-400 transition-colors"
         >
           <ChevronLeft size={15} />
           Back to Browse
@@ -174,7 +175,7 @@ export default function ProjectDetailPage() {
           >
             {/* ── Image Gallery ── */}
             <div className="mb-6">
-              <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-950/40 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-md">
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-[var(--color-input-bg)] border border-[var(--color-border)] shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-md">
                 {hasImages ? (
                   <img
                     src={images[mainImage]}
@@ -182,11 +183,11 @@ export default function ProjectDetailPage() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-orange-950/30 via-slate-950 to-rose-950/30">
-                    <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-lg">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-orange-500/10 via-[var(--color-bg2)] to-rose-500/10">
+                    <div className="w-16 h-16 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] flex items-center justify-center shadow-lg">
                       <Code2 size={32} className="text-orange-400" />
                     </div>
-                    <span className="font-sora font-bold text-slate-100 text-xl text-center px-4">
+                    <span className="font-sora font-bold text-[var(--color-text-heading)] text-xl text-center px-4">
                       {proj.title}
                     </span>
                     <span className="text-orange-300 text-sm bg-orange-500/10 px-3 py-1 rounded-full border border-orange-500/20">{proj.domain}</span>
@@ -210,7 +211,7 @@ export default function ProjectDetailPage() {
                       className={`relative flex-shrink-0 w-20 h-14 rounded-xl overflow-hidden border-2 transition-all duration-300 ${
                         mainImage === idx
                           ? 'border-orange-500 shadow-[0_0_12px_rgba(249,115,22,0.5)] scale-95'
-                          : 'border-white/5 opacity-60 hover:opacity-100 hover:border-white/20'
+                          : 'border-[var(--color-border)] opacity-60 hover:opacity-100 hover:border-white/20'
                       }`}
                     >
                       <img src={src} alt={`Screenshot ${idx + 1}`} className="w-full h-full object-cover" />
@@ -234,16 +235,16 @@ export default function ProjectDetailPage() {
             </div>
 
             {/* ── Tabs Section ── */}
-            <div className="bg-slate-900/40 border border-white/10 rounded-2xl p-6 backdrop-blur-md shadow-2xl relative overflow-hidden mb-8 lg:mb-0">
+            <div className="bg-[var(--color-bg1)]/40 border border-[var(--color-border)] rounded-2xl p-6 backdrop-blur-md shadow-2xl relative overflow-hidden mb-8 lg:mb-0">
               <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-[80px] pointer-events-none" />
 
               <Tabs value={activeTab} onValueChange={handleTabChange}>
-                <TabsList className="flex overflow-x-auto md:flex-wrap whitespace-nowrap scrollbar-hide max-w-full h-auto gap-1 mb-6 bg-slate-950/60 p-1 rounded-xl border border-white/5">
-                  <TabsTrigger value="overview" className="px-4 py-2 text-sm text-slate-400 data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Overview</TabsTrigger>
-                  <TabsTrigger value="features" className="px-4 py-2 text-sm text-slate-400 data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Features</TabsTrigger>
-                  <TabsTrigger value="technologies" className="px-4 py-2 text-sm text-slate-400 data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Technologies</TabsTrigger>
-                  <TabsTrigger value="documentation" className="px-4 py-2 text-sm text-slate-400 data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Documentation</TabsTrigger>
-                  <TabsTrigger value="reviews" className="px-4 py-2 text-sm text-slate-400 data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">
+                <TabsList className="flex overflow-x-auto md:flex-wrap whitespace-nowrap scrollbar-hide max-w-full h-auto gap-1 mb-6 bg-[var(--color-input-bg)] p-1 rounded-xl border border-[var(--color-border)]">
+                  <TabsTrigger value="overview" className="px-4 py-2 text-sm text-[var(--color-subtle)] data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Overview</TabsTrigger>
+                  <TabsTrigger value="features" className="px-4 py-2 text-sm text-[var(--color-subtle)] data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Features</TabsTrigger>
+                  <TabsTrigger value="technologies" className="px-4 py-2 text-sm text-[var(--color-subtle)] data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Technologies</TabsTrigger>
+                  <TabsTrigger value="documentation" className="px-4 py-2 text-sm text-[var(--color-subtle)] data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">Documentation</TabsTrigger>
+                  <TabsTrigger value="reviews" className="px-4 py-2 text-sm text-[var(--color-subtle)] data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all rounded-lg">
                     Reviews ({proj.reviewCount})
                   </TabsTrigger>
                 </TabsList>
@@ -252,23 +253,23 @@ export default function ProjectDetailPage() {
                 <TabsContent value="overview">
                   <div className="space-y-6">
                     <div>
-                      <h3 className="font-sora font-semibold text-slate-100 text-lg mb-3">
+                      <h3 className="font-sora font-semibold text-[var(--color-text-heading)] text-lg mb-3">
                         About this Project
                       </h3>
-                      <p className="text-slate-300 leading-relaxed text-sm whitespace-pre-line font-inter">
+                      <p className="text-[var(--color-text)] leading-relaxed text-sm whitespace-pre-line font-inter">
                         {proj.description}
                       </p>
                     </div>
 
-                    <hr className="border-white/5 my-4" />
+                    <hr className="border-[var(--color-border)] my-4" />
 
                     <div>
-                      <h3 className="font-sora font-semibold text-slate-100 text-base mb-3">
+                      <h3 className="font-sora font-semibold text-[var(--color-text-heading)] text-base mb-3">
                         Key Highlights
                       </h3>
                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {highlights.map((h, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-sm text-slate-300 bg-slate-950/20 p-2.5 rounded-xl border border-white/5">
+                          <li key={i} className="flex items-start gap-2.5 text-sm text-[var(--color-text)] bg-[var(--color-bg0)]/20 p-2.5 rounded-xl border border-[var(--color-border)]">
                             <Check
                               size={16}
                               className="text-emerald-400 mt-0.5 shrink-0 bg-emerald-500/10 p-0.5 rounded"
@@ -281,12 +282,12 @@ export default function ProjectDetailPage() {
 
                     {proj.tags.length > 0 && (
                       <div>
-                        <h3 className="font-sora font-semibold text-slate-100 text-base mb-3">
+                        <h3 className="font-sora font-semibold text-[var(--color-text-heading)] text-base mb-3">
                           Tags
                         </h3>
                         <div className="flex flex-wrap gap-2">
                           {proj.tags.map((tag) => (
-                            <Badge key={tag} className="text-xs bg-slate-950/40 text-slate-300 border border-white/10 hover:bg-slate-900">
+                            <Badge key={tag} className="text-xs bg-[var(--color-input-bg)] text-[var(--color-text)] border border-[var(--color-border)] hover:bg-[var(--color-bg1)]">
                               {tag}
                             </Badge>
                           ))}
@@ -299,7 +300,7 @@ export default function ProjectDetailPage() {
                 {/* Features Tab */}
                 <TabsContent value="features">
                   <div className="space-y-4">
-                    <h3 className="font-sora font-semibold text-slate-100 text-lg mb-2">
+                    <h3 className="font-sora font-semibold text-[var(--color-text-heading)] text-lg mb-2">
                       Project Features
                     </h3>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -317,11 +318,11 @@ export default function ProjectDetailPage() {
                         ...(proj.videoUrl ? ['Full video walkthrough of all features'] : []),
                         'WhatsApp support for 7 days post-purchase',
                       ].map((feature, i) => (
-                        <li key={i} className="flex items-start gap-3 bg-slate-950/20 p-3 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
+                        <li key={i} className="flex items-start gap-3 bg-[var(--color-bg0)]/20 p-3 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-border)] transition-colors">
                           <span className="w-5 h-5 rounded-full bg-orange-500/10 flex items-center justify-center shrink-0 mt-0.5 border border-orange-500/20">
                             <Check size={12} className="text-orange-400" />
                           </span>
-                          <span className="text-sm text-slate-300">{feature}</span>
+                          <span className="text-sm text-[var(--color-text)]">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -331,21 +332,21 @@ export default function ProjectDetailPage() {
                 {/* Technologies Tab */}
                 <TabsContent value="technologies">
                   <div className="space-y-5">
-                    <h3 className="font-sora font-semibold text-slate-100 text-lg">
+                    <h3 className="font-sora font-semibold text-[var(--color-text-heading)] text-lg">
                       Technologies Used
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {proj.technologies.map((tech) => (
                         <div
                           key={tech}
-                          className="flex items-center gap-3 p-3 bg-slate-950/40 rounded-xl border border-white/5 hover:border-white/10 transition-colors"
+                          className="flex items-center gap-3 p-3 bg-[var(--color-input-bg)] rounded-xl border border-[var(--color-border)] hover:border-[var(--color-border)] transition-colors"
                         >
                           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-orange-500/20 to-rose-500/20 border border-orange-500/30 flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(249,115,22,0.15)]">
                             <Code2 size={16} className="text-orange-400" />
                           </div>
                           <div>
-                            <p className="font-semibold text-slate-200 text-sm">{tech}</p>
-                            <p className="text-xs text-slate-500">Core technology</p>
+                            <p className="font-semibold text-[var(--color-text-heading)] text-sm">{tech}</p>
+                            <p className="text-xs text-[var(--color-muted)]">Core technology</p>
                           </div>
                         </div>
                       ))}
@@ -356,7 +357,7 @@ export default function ProjectDetailPage() {
                 {/* Documentation Tab */}
                 <TabsContent value="documentation">
                   <div className="space-y-5">
-                    <h3 className="font-sora font-semibold text-slate-100 text-lg">
+                    <h3 className="font-sora font-semibold text-[var(--color-text-heading)] text-lg">
                       Documentation
                     </h3>
                     <div className="p-5 bg-emerald-950/20 border border-emerald-500/20 rounded-xl flex items-start gap-4 shadow-[0_0_15px_rgba(16,185,129,0.05)]">
@@ -367,7 +368,7 @@ export default function ProjectDetailPage() {
                         <p className="font-semibold text-emerald-300 text-sm mb-1">
                           Comprehensive Documentation Included
                         </p>
-                        <p className="text-slate-300 text-sm leading-relaxed">
+                        <p className="text-[var(--color-text)] text-sm leading-relaxed">
                           This project comes with detailed documentation covering system architecture,
                           database design, API endpoints, installation steps, and usage instructions.
                           Perfect for academic submission and personal learning.
@@ -384,7 +385,7 @@ export default function ProjectDetailPage() {
                         'Project Report Template (IEEE format)',
                         'Environment configuration instructions',
                       ].map((doc, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-slate-300 bg-slate-950/10 p-2.5 rounded-lg border border-white/5">
+                        <li key={i} className="flex items-center gap-2 text-sm text-[var(--color-text)] bg-[var(--color-bg0)]/10 p-2.5 rounded-lg border border-[var(--color-border)]">
                           <Check size={14} className="text-emerald-400 shrink-0" />
                           <span>{doc}</span>
                         </li>
@@ -397,14 +398,14 @@ export default function ProjectDetailPage() {
                 <TabsContent value="reviews">
                   <div className="space-y-6">
                     <div className="flex flex-col md:flex-row items-center gap-6 p-5 bg-amber-950/10 border border-amber-500/10 rounded-xl">
-                      <div className="text-center md:border-r md:border-white/5 md:pr-8 shrink-0">
-                        <p className="font-sora font-bold text-4xl text-slate-100">
+                      <div className="text-center md:border-r md:border-[var(--color-border)] md:pr-8 shrink-0">
+                        <p className="font-sora font-bold text-4xl text-[var(--color-text-heading)]">
                           {proj.rating.toFixed(1)}
                         </p>
                         <div className="my-1.5">
                           <StarRating rating={proj.rating} size={14} />
                         </div>
-                        <p className="text-xs text-slate-400 mt-1">
+                        <p className="text-xs text-[var(--color-subtle)] mt-1">
                           {proj.reviewCount} reviews
                         </p>
                       </div>
@@ -413,15 +414,15 @@ export default function ProjectDetailPage() {
                           const pct = star === 5 ? 65 : star === 4 ? 22 : star === 3 ? 8 : star === 2 ? 3 : 2
                           return (
                             <div key={star} className="flex items-center gap-2 mb-1.5">
-                              <span className="text-xs text-slate-400 w-3">{star}</span>
+                              <span className="text-xs text-[var(--color-subtle)] w-3">{star}</span>
                               <Star size={10} className="fill-amber-400 text-amber-400" />
-                              <div className="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
+                              <div className="flex-1 h-2 bg-[var(--color-bg2)] rounded-full overflow-hidden">
                                 <div
                                   className="h-full bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"
                                   style={{ width: `${pct}%` }}
                                 />
                               </div>
-                              <span className="text-xs text-slate-400 w-8 text-right">{pct}%</span>
+                              <span className="text-xs text-[var(--color-subtle)] w-8 text-right">{pct}%</span>
                             </div>
                           )
                         })}
@@ -433,30 +434,30 @@ export default function ProjectDetailPage() {
                         {mockReviews.map((review) => (
                           <div
                             key={review.id}
-                            className="p-4 bg-slate-950/30 border border-white/5 rounded-xl hover:border-white/10 transition-colors"
+                            className="p-4 bg-[var(--color-bg0)]/30 border border-[var(--color-border)] rounded-xl hover:border-[var(--color-border)] transition-colors"
                           >
                             <div className="flex items-center justify-between mb-3">
                               <div className="flex items-center gap-2">
                                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-rose-500 flex items-center justify-center text-white text-xs font-bold shadow-[0_0_8px_rgba(249,115,22,0.3)]">
                                   AB
                                 </div>
-                                <span className="text-sm font-medium text-slate-200">
+                                <span className="text-sm font-medium text-[var(--color-text-heading)]">
                                   {review.name}
                                 </span>
                               </div>
-                              <span className="text-xs text-slate-500">
+                              <span className="text-xs text-[var(--color-muted)]">
                                 {formatDate(review.date)}
                               </span>
                             </div>
                             <div className="mb-2">
                               <StarRating rating={review.rating} size={13} />
                             </div>
-                            <p className="text-sm text-slate-300 leading-relaxed">{review.comment}</p>
+                            <p className="text-sm text-[var(--color-text)] leading-relaxed">{review.comment}</p>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <div className="text-center py-10 text-slate-500 bg-slate-950/20 rounded-xl border border-white/5">
+                      <div className="text-center py-10 text-[var(--color-muted)] bg-[var(--color-bg0)]/20 rounded-xl border border-[var(--color-border)]">
                         <Star size={32} className="mx-auto mb-2 opacity-20" />
                         <p className="text-sm">No reviews yet. Be the first to review!</p>
                       </div>
@@ -476,14 +477,14 @@ export default function ProjectDetailPage() {
           >
             <div className="sticky top-24 space-y-4">
               {/* ── Purchase Card ── */}
-              <div className="bg-slate-900/40 border border-white/10 rounded-2xl p-5 backdrop-blur-md shadow-2xl relative overflow-hidden">
+              <div className="bg-[var(--color-bg1)]/40 border border-[var(--color-border)] rounded-2xl p-5 backdrop-blur-md shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-64 h-64 bg-orange-500/5 rounded-full blur-[80px] pointer-events-none" />
 
-                <h1 className="font-sora font-bold text-2xl text-slate-100 leading-snug mb-1">
+                <h1 className="font-sora font-bold text-2xl text-[var(--color-text-heading)] leading-snug mb-1">
                   {proj.title}
                 </h1>
 
-                <p className="text-sm text-slate-400 mb-3">
+                <p className="text-sm text-[var(--color-subtle)] mb-3">
                   by{' '}
                   <span className="font-semibold text-orange-400">
                     {creatorLabel}
@@ -492,7 +493,7 @@ export default function ProjectDetailPage() {
 
                 <div className="flex items-center gap-2 mb-4">
                   <StarRating rating={proj.rating} />
-                  <span className="text-sm font-semibold text-slate-200">
+                  <span className="text-sm font-semibold text-[var(--color-text-heading)]">
                     {proj.rating.toFixed(1)}
                   </span>
                   <span className="text-sm text-slate-555">
@@ -504,22 +505,22 @@ export default function ProjectDetailPage() {
                   <span className="font-sora font-bold text-3xl text-orange-400">
                     {formatPrice(proj.price)}
                   </span>
-                  <span className="text-sm text-slate-500">one-time</span>
+                  <span className="text-sm text-[var(--color-muted)]">one-time</span>
                 </div>
 
-                <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="block w-full mb-3">
-                  <Button
-                    variant="success"
-                    size="lg"
-                    className="w-full bg-[#25D366] hover:bg-[#1ebe57] focus-visible:ring-green-500 text-white font-semibold shadow-[0_0_20px_rgba(37,211,102,0.25)] hover:shadow-[0_0_25px_rgba(37,211,102,0.4)] hover:-translate-y-0.5 transition-all duration-300"
-                  >
-                    <MessageCircle size={18} />
-                    Buy via WhatsApp
-                  </Button>
-                </a>
+                <Link
+                  to={`/buy/${proj.id}`}
+                  className="w-full flex items-center justify-center gap-2 mb-3 py-3 rounded-xl text-sm font-bold font-inter text-white transition-all duration-300 hover:-translate-y-0.5"
+                  style={{ background: 'linear-gradient(135deg,#7214ff 0%,#a365ff 100%)', boxShadow: '0 4px 14px rgba(114,20,255,0.28)' }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(114,20,255,0.40)' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(114,20,255,0.28)' }}
+                >
+                  <ShoppingBag size={18} />
+                  Buy
+                </Link>
 
                 <Link to="/custom-project" className="block w-full mb-4">
-                  <Button variant="outline" size="lg" className="w-full border-white/10 text-slate-200 hover:bg-white/5 hover:text-white transition-all duration-300 hover:-translate-y-0.5">
+                  <Button variant="outline" size="lg" className="w-full border-[var(--color-border)] text-[var(--color-text-heading)] hover:bg-[var(--color-card)] hover:text-white transition-all duration-300 hover:-translate-y-0.5">
                     <ExternalLink size={16} />
                     Request Similar Project
                   </Button>
@@ -528,7 +529,7 @@ export default function ProjectDetailPage() {
                 <button
                   onClick={() => setSaved((s) => !s)}
                   className={`flex items-center gap-2 text-sm transition-all duration-200 ${
-                    saved ? 'text-orange-400 font-semibold' : 'text-slate-400 hover:text-orange-400'
+                    saved ? 'text-orange-400 font-semibold' : 'text-[var(--color-subtle)] hover:text-orange-400'
                   }`}
                 >
                   <Bookmark
@@ -538,31 +539,31 @@ export default function ProjectDetailPage() {
                   {saved ? 'Saved to Wishlist' : 'Save to Wishlist'}
                 </button>
 
-                <hr className="my-5 border-white/10" />
+                <hr className="my-5 border-[var(--color-border)]" />
 
                 <div className="grid grid-cols-2 gap-3 mb-5">
-                  <div className="flex items-center gap-2.5 p-2.5 bg-slate-950/40 border border-white/5 rounded-xl">
-                    <Eye size={15} className="text-slate-400 shrink-0" />
+                  <div className="flex items-center gap-2.5 p-2.5 bg-[var(--color-input-bg)] border border-[var(--color-border)] rounded-xl">
+                    <Eye size={15} className="text-[var(--color-subtle)] shrink-0" />
                     <div>
-                      <p className="text-[10px] text-slate-500 uppercase font-semibold">Views</p>
-                      <p className="text-sm font-semibold text-slate-200">
+                      <p className="text-[10px] text-[var(--color-muted)] uppercase font-semibold">Views</p>
+                      <p className="text-sm font-semibold text-[var(--color-text-heading)]">
                         {proj.views.toLocaleString('en-IN')}
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2.5 p-2.5 bg-slate-950/40 border border-white/5 rounded-xl">
-                    <Download size={15} className="text-slate-400 shrink-0" />
+                  <div className="flex items-center gap-2.5 p-2.5 bg-[var(--color-input-bg)] border border-[var(--color-border)] rounded-xl">
+                    <Download size={15} className="text-[var(--color-subtle)] shrink-0" />
                     <div>
-                      <p className="text-[10px] text-slate-500 uppercase font-semibold">Downloads</p>
-                      <p className="text-sm font-semibold text-slate-200">
+                      <p className="text-[10px] text-[var(--color-muted)] uppercase font-semibold">Downloads</p>
+                      <p className="text-sm font-semibold text-[var(--color-text-heading)]">
                         {proj.downloads.toLocaleString('en-IN')}
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2.5 p-2.5 bg-slate-950/40 border border-white/5 rounded-xl">
-                    <BarChart2 size={15} className="text-slate-400 shrink-0" />
+                  <div className="flex items-center gap-2.5 p-2.5 bg-[var(--color-input-bg)] border border-[var(--color-border)] rounded-xl">
+                    <BarChart2 size={15} className="text-[var(--color-subtle)] shrink-0" />
                     <div>
-                      <p className="text-[10px] text-slate-500 uppercase font-semibold">Difficulty</p>
+                      <p className="text-[10px] text-[var(--color-muted)] uppercase font-semibold">Difficulty</p>
                       <Badge className={`text-[10px] capitalize mt-0.5 border px-1.5 py-0.5 rounded-md ${
                         proj.difficulty === 'beginner'
                           ? 'bg-green-500/10 text-green-300 border-green-500/20'
@@ -574,11 +575,11 @@ export default function ProjectDetailPage() {
                       </Badge>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2.5 p-2.5 bg-slate-950/40 border border-white/5 rounded-xl">
-                    <Tag size={15} className="text-slate-400 shrink-0" />
+                  <div className="flex items-center gap-2.5 p-2.5 bg-[var(--color-input-bg)] border border-[var(--color-border)] rounded-xl">
+                    <Tag size={15} className="text-[var(--color-subtle)] shrink-0" />
                     <div>
-                      <p className="text-[10px] text-slate-500 uppercase font-semibold">Category</p>
-                      <p className="text-sm font-semibold text-slate-200 truncate">
+                      <p className="text-[10px] text-[var(--color-muted)] uppercase font-semibold">Category</p>
+                      <p className="text-sm font-semibold text-[var(--color-text-heading)] truncate">
                         {proj.domain}
                       </p>
                     </div>
@@ -586,14 +587,14 @@ export default function ProjectDetailPage() {
                 </div>
 
                 {proj.updatedAt && (
-                  <div className="flex items-center gap-2 text-xs text-slate-500 mb-4 bg-slate-950/20 p-2 rounded-lg border border-white/5">
+                  <div className="flex items-center gap-2 text-xs text-[var(--color-muted)] mb-4 bg-[var(--color-bg0)]/20 p-2 rounded-lg border border-[var(--color-border)]">
                     <Calendar size={13} className="text-orange-400" />
                     <span>Last updated {formatDate(proj.updatedAt)}</span>
                   </div>
                 )}
 
                 <div className="mb-5">
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                  <p className="text-[10px] font-semibold text-[var(--color-subtle)] uppercase tracking-wider mb-2">
                     Tech Stack
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -605,10 +606,10 @@ export default function ProjectDetailPage() {
                   </div>
                 </div>
 
-                <hr className="my-5 border-white/10" />
+                <hr className="my-5 border-[var(--color-border)]" />
 
                 <div className="space-y-2.5 mb-5">
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2.5">
+                  <p className="text-[10px] font-semibold text-[var(--color-subtle)] uppercase tracking-wider mb-2.5">
                     What's Included
                   </p>
                   {[
@@ -617,20 +618,20 @@ export default function ProjectDetailPage() {
                     ...(proj.videoUrl ? [{ icon: Video, label: 'Video Tutorial Included' }] : []),
                     { icon: FileText, label: 'Documentation Included' },
                   ].map(({ icon: Icon, label }) => (
-                    <div key={label} className="flex items-center gap-2.5 text-sm text-slate-300">
+                    <div key={label} className="flex items-center gap-2.5 text-sm text-[var(--color-text)]">
                       <span className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20">
                         <Check size={11} className="text-emerald-400" />
                       </span>
-                      <Icon size={14} className="text-slate-400 shrink-0" />
+                      <Icon size={14} className="text-[var(--color-subtle)] shrink-0" />
                       <span>{label}</span>
                     </div>
                   ))}
                 </div>
 
-                <hr className="my-5 border-white/10" />
+                <hr className="my-5 border-[var(--color-border)]" />
 
                 <div>
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2.5">
+                  <p className="text-[10px] font-semibold text-[var(--color-subtle)] uppercase tracking-wider mb-2.5">
                     Share
                   </p>
                   <div className="flex items-center gap-2">
@@ -640,14 +641,14 @@ export default function ProjectDetailPage() {
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-white/10 text-sm text-slate-300 hover:bg-white/5 hover:text-[#1DA1F2] transition-colors"
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-[var(--color-border)] text-sm text-[var(--color-text)] hover:bg-[var(--color-card)] hover:text-[#1DA1F2] transition-colors"
                     >
                       <Share2 size={14} />
                       <span>Share</span>
                     </a>
                     <button
                       onClick={handleCopyLink}
-                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-white/10 text-sm text-slate-300 hover:bg-white/5 transition-colors"
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-[var(--color-border)] text-sm text-[var(--color-text)] hover:bg-[var(--color-card)] transition-colors"
                     >
                       {copied ? (
                         <>

@@ -19,7 +19,7 @@ const PAGES: Record<string, { title: string; content: React.ReactNode }> = {
               <span className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white font-bold shrink-0">{item.step}</span>
               <div>
                 <h3 className="font-semibold text-slate-800">{item.title}</h3>
-                <p className="text-sm text-slate-500 mt-1">{item.desc}</p>
+                <p className="text-sm text-[var(--color-muted)] mt-1">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -41,7 +41,7 @@ const PAGES: Record<string, { title: string; content: React.ReactNode }> = {
               <h3 className="font-bold text-slate-800">{item.title}</h3>
               <p className="text-sm text-blue-600 font-medium">by {item.author}</p>
               <p className="text-sm text-emerald-600 font-semibold mt-2">{item.result}</p>
-              <p className="text-sm text-slate-500 mt-2 leading-relaxed">{item.desc}</p>
+              <p className="text-sm text-[var(--color-muted)] mt-2 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -61,7 +61,7 @@ const PAGES: Record<string, { title: string; content: React.ReactNode }> = {
         ].map((item) => (
           <div key={item.q} className="bg-white rounded-2xl border border-slate-200 p-5">
             <h3 className="font-semibold text-slate-800">{item.q}</h3>
-            <p className="text-sm text-slate-500 mt-2 leading-relaxed">{item.a}</p>
+            <p className="text-sm text-[var(--color-muted)] mt-2 leading-relaxed">{item.a}</p>
           </div>
         ))}
       </div>
@@ -80,7 +80,7 @@ const PAGES: Record<string, { title: string; content: React.ReactNode }> = {
           ].map((stat) => (
             <div key={stat.label} className="text-center bg-slate-50 rounded-2xl p-6">
               <p className="text-3xl font-extrabold text-blue-600">{stat.value}</p>
-              <p className="text-sm text-slate-500 mt-1">{stat.label}</p>
+              <p className="text-sm text-[var(--color-muted)] mt-1">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -96,19 +96,19 @@ const PAGES: Record<string, { title: string; content: React.ReactNode }> = {
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-slate-50 rounded-2xl p-6">
             <h3 className="font-semibold text-slate-800">Email</h3>
-            <p className="text-sm text-slate-500 mt-1">support@innovateguide.com</p>
+            <p className="text-sm text-[var(--color-muted)] mt-1">support@innovateguide.com</p>
           </div>
           <div className="bg-slate-50 rounded-2xl p-6">
             <h3 className="font-semibold text-slate-800">Phone</h3>
-            <p className="text-sm text-slate-500 mt-1">+91 98765 43210</p>
+            <p className="text-sm text-[var(--color-muted)] mt-1">+91 98765 43210</p>
           </div>
           <div className="bg-slate-50 rounded-2xl p-6">
             <h3 className="font-semibold text-slate-800">Address</h3>
-            <p className="text-sm text-slate-500 mt-1">InnovateGuide HQ, Bangalore, India</p>
+            <p className="text-sm text-[var(--color-muted)] mt-1">InnovateGuide HQ, Bangalore, India</p>
           </div>
           <div className="bg-slate-50 rounded-2xl p-6">
             <h3 className="font-semibold text-slate-800">Social</h3>
-            <p className="text-sm text-slate-500 mt-1">Follow us on Twitter, LinkedIn, and Instagram</p>
+            <p className="text-sm text-[var(--color-muted)] mt-1">Follow us on Twitter, LinkedIn, and Instagram</p>
           </div>
         </div>
       </div>
@@ -157,7 +157,7 @@ export default function StaticPage() {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         <h1 className="text-3xl font-bold text-slate-800">Page Not Found</h1>
-        <p className="text-slate-500 mt-2">The page you're looking for doesn't exist.</p>
+        <p className="text-[var(--color-muted)] mt-2">The page you're looking for doesn't exist.</p>
         <Link to="/" className="inline-flex items-center gap-2 text-blue-600 font-medium mt-4 hover:underline">
           <ArrowLeft size={16} /> Back to Home
         </Link>
@@ -167,7 +167,7 @@ export default function StaticPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <Link to="/" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-blue-600 mb-8 transition-colors">
+      <Link to="/" className="inline-flex items-center gap-2 text-sm text-[var(--color-muted)] hover:text-blue-600 mb-8 transition-colors">
         <ArrowLeft size={16} /> Back to Home
       </Link>
       <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-8">{page.title}</h1>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight, Brain, Globe, Shield, Cpu, Link as LinkIcon, Smartphone, BarChart2, Cloud, BookOpen, Gamepad2 } from 'lucide-react'
 import { cn } from '@utils/index'
 import type { Category } from '@ig-types/index'
+import { useTheme } from '@shared/contexts/ThemeContext'
 
 // ── Map icon string → Lucide component (like the screenshot uses icon images) ──
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -42,11 +43,16 @@ export interface CategoryCardProps {
 }
 
 export function CategoryCard({ category, index = 0, className }: CategoryCardProps) {
+  const { isDark } = useTheme()
   const iconKey = (category.icon as string) ?? 'Brain'
   const iconEl = ICON_MAP[iconKey] ?? <Brain size={20} />
   const accent = ICON_GRADIENT[iconKey] ?? FALLBACK
 
   const [hov, setHov] = React.useState(false)
+
+  // Adjust pill text color for light mode so it's readable
+  const pillTextColor = isDark ? accent.pillText : accent.from
+  const pillBgColor = isDark ? accent.pill : accent.glow.replace('0.30', '0.12').replace('0.28', '0.12').replace('0.25', '0.12')
 
   return (
     <motion.div
@@ -61,9 +67,9 @@ export function CategoryCard({ category, index = 0, className }: CategoryCardPro
         )}`}
         className="group relative flex flex-col h-full rounded-2xl p-5 overflow-hidden transition-all duration-300"
         style={{
-          background: '#0E1330',
-          border: `1px solid ${hov ? accent.glow.replace('0.30', '0.50').replace('0.28', '0.45').replace('0.25', '0.40') : 'rgba(255,255,255,0.06)'}`,
-          boxShadow: hov ? `0 0 0 1px ${accent.glow}, 0 8px 32px ${accent.glow}` : '0 2px 8px rgba(0,0,0,0.20)',
+          background: 'var(--color-card)',
+          border: `1px solid ${hov ? accent.glow.replace('0.30', '0.50').replace('0.28', '0.45').replace('0.25', '0.40') : 'var(--color-border)'}`,
+          boxShadow: hov ? `0 0 0 1px ${accent.glow}, 0 8px 32px ${accent.glow}` : 'var(--color-card-shadow)',
           transform: hov ? 'translateY(-4px)' : 'none',
         }}
         onMouseEnter={() => setHov(true)}
@@ -97,7 +103,7 @@ export function CategoryCard({ category, index = 0, className }: CategoryCardPro
             size={16}
             className="transition-all duration-300 shrink-0"
             style={{
-              color: hov ? accent.pillText : 'rgba(255,255,255,0.25)',
+              color: hov ? accent.from : 'var(--color-subtle)',
               transform: hov ? 'translate(2px,-2px)' : 'none',
             }}
           />
@@ -105,12 +111,12 @@ export function CategoryCard({ category, index = 0, className }: CategoryCardPro
 
         {/* Name + pill — directly below the icon with consistent spacing */}
         <div className="pt-5">
-          <h3 className="font-sora font-semibold text-sm text-slate-200 group-hover:text-white transition-colors leading-snug mb-2">
+          <h3 className="font-sora font-semibold text-sm transition-colors leading-snug mb-2" style={{ color: 'var(--color-text-heading)' }}>
             {category.name}
           </h3>
           <span
             className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold font-inter"
-            style={{ background: accent.pill, color: accent.pillText }}
+            style={{ background: pillBgColor, color: pillTextColor }}
           >
             {category.count ?? 0} projects
           </span>
